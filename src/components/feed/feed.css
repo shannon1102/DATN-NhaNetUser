@@ -1,0 +1,7 @@
+.feed {
+    width: calc(100vw / 2);
+}
+
+.feedWrapper {
+    padding: 20px 45px 25px 45px;
+}

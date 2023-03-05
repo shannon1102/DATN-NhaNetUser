@@ -1,0 +1,49 @@
+/* .slide-container{
+    display: flex;
+    max-width: 1200px;
+    max-height: 600px;
+    left: 0;
+    right: 0;
+}
+.image-container{
+    object-fit: contain;
+} */
+
+.postDetail {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+}
+
+.mediaContainer {
+    flex: 7;
+}
+
+.actionContainer {
+    flex: 3;
+}
+
+.postTopLeft {
+    display: flex;
+    align-items: center;
+}
+
+.postProfileImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.postUsername {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.postDate {
+    font-size: 12px;
+}
+
+.postCenter {
+    margin: 20px 0;
+}

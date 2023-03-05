@@ -1,0 +1,17 @@
+.sideBarFilter {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 20px;
+    width: "100%";
+    flex-shrink: 0;
+    max-width: 400px;
+    margin-top: 100px;
+}
+
+
+/* .formControl{
+  width: "100%";
+  min-width: 300px !important;
+} */
+   

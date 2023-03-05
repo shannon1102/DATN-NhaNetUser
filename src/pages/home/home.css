@@ -1,0 +1,17 @@
+.homeContainer{
+    display: flex;
+    width: 100%;
+    /* max-width: 1024px;
+    justify-content: center;
+    align-items: center; */
+}
+/* .allContainer{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+
+    justify-content: center;
+}
+.allContainerItem{
+    flex:1
+} */

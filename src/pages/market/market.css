@@ -1,0 +1,21 @@
+.marketContainer{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  flex: 3;
+  z-index: -1;
+}
+
+.marketTitle{
+  /* width: 1024px; */
+  font-size: 20px;
+}
+.filterProduct{
+  flex:1
+}
+.marketBody{
+  display: flex;
+  z-index: -1;
+}

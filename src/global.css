@@ -1,0 +1,17 @@
+* {
+    --primary-color: #5459AD;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: var(--primary-color);
+}

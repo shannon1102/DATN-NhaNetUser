@@ -1,0 +1,126 @@
+.topbarContainer {
+    height: 70px;
+    width: 100%;
+    background-color: #F4F7FF;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    justify-content: space-between;
+    border-bottom: 1px solid #E4E6EB;
+    /* z-index: 999; */
+}
+
+.topbarLeft {
+    display: flex;
+}
+
+.logo {
+    font-size: 30px;
+    margin-left: 6px;
+    font-weight: bold;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.topbarCenter {
+    flex: 7;
+    display: flex;
+    justify-content: space-around;
+}
+
+.searchbar {
+    width: 500px;
+    margin-right: 40px;
+    height: 50px;
+    border-radius: 25px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.searchbar:hover {
+    box-shadow: 1px 1px 5px #dee0ff;
+}
+
+.searchIcon {
+    margin-left: 10px;
+    color: #ABABAB;
+    font-size: 24px !important;
+}
+
+.searchInput {
+    border: none;
+    width: 100%;
+    padding-left: 6px;
+}
+
+.searchInput:focus {
+    outline: none;
+}
+
+.topbarRight {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    /* margin-right: -100px; */
+}
+
+.topBarRightUserName {
+    margin-left: 10px;
+}
+
+.topbarLink {
+    margin-right: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.topbarIcons {
+    display: flex;
+}
+
+.topbarIconItem {
+    margin: 0 100px;
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative;
+    color: rgb(255, 255, 255);
+}
+
+.topbarIconBadge {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.topbarImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.logo__img {
+    width: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .topbarLink {
+        display: none;
+    }
+}

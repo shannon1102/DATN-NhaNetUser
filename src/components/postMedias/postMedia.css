@@ -1,0 +1,66 @@
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-zoom.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lg-video.css');
+h1,
+p {
+    font-family: Lato;
+}
+
+body {
+    margin: 0;
+}
+
+.post-media-center {
+    display: flex;
+    justify-content: center;
+}
+
+.post-media__1 {
+    height: 600px;
+}
+
+.post-media__2 {
+    display: flex;
+    max-height: 500px;
+    justify-content: space-between;
+    /* background-color: black; */
+}
+
+.post-media__2-1 {
+    width: calc(50% - 5px);
+}
+
+.post-media__2-2 {
+    width: calc(50% - 5px);
+}
+
+.post-media__3 {
+    display: flex;
+    max-height: 800px;
+    justify-content: space-between;
+    /* background-color: black; */
+}
+
+.post-media__3-1 {
+    width: 50%;
+}
+
+.post-media__3-2 img {
+    height: 100%;
+}
+
+.post-media__3-2 {
+    max-height: 398px;
+    width: 50%;
+    overflow: hidden;
+}
+
+.post-media__3-3 {
+    max-height: 398px;
+    width: 50%;
+    overflow: hidden;
+}
+
+.post-media__3-3 img {
+    height: 100%;
+}
