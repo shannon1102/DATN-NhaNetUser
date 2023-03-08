@@ -18,6 +18,7 @@ import { MessageInput } from "../../components/chatting/MessageInput";
 import { Button, TextField } from "@mui/material";
 
 import SendIcon from "@material-ui/icons/Send";
+import Sidebar from "../../components/sidebar/Sidebar";
 
 
 export default function Messenger() {
@@ -239,6 +240,8 @@ export default function Messenger() {
   return (
     <>
       <Topbar isContainSearch={true} />
+      <div className="chatContainer">
+      <Sidebar></Sidebar>  
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
@@ -334,6 +337,8 @@ export default function Messenger() {
           </div>
         </div>
       </div>
+      </div>
+  
     </>
   );
 }

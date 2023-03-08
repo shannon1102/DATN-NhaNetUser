@@ -24,6 +24,7 @@ import HotelIcon from "@material-ui/icons/Hotel";
 import BathtubIcon from "@material-ui/icons/Bathtub";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import "./filterSidebar.css";
+import AppButton from "../../AppButton/AppButton";
 const FilterSidebar = () => {
   // const = useStyles();
 
@@ -58,6 +59,8 @@ const FilterSidebar = () => {
 
   return (
     <div className="sideBarFilter">
+
+      <div className=""></div>
       <Paper>
       <Typography  sx={{
        

@@ -8,12 +8,16 @@ export default function ListComment({ comments }) {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [comments]);
-
+  console.log("COment", comments);
   return (
     <div className="commentTop">
-      {comments?.map((cmt) => (
-        <Comment comment={cmt} />
-      ))}
+      {comments
+        ?.sort(function (a, b) {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
+        .map((cmt) => (
+          <Comment comment={cmt} />
+        ))}
     </div>
   );
 }

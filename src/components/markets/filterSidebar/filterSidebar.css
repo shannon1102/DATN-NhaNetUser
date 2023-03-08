@@ -10,7 +10,8 @@
 }
 .filterBarTitle{
     margin-bottom: 20px !important;
-    font-family: "Lato" !important;
+    /* font-family: "Lato" !important; */
+    color: #5459AD;
 
     /* display: flex  !important;
     justify-content: "center"  !important; */

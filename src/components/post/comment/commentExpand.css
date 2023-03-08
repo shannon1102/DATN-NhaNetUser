@@ -1,3 +1,42 @@
 .commentTop{
     padding-bottom: 20px;
 }
+
+.commentInputContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /* padding-bottom: 10px; */
+    /* /* outline: 1px solid rgb(183, 243, 183); */
+    outline: 1px solid rgb(137, 232, 241);
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-right: 50px;
+  }
+  
+  .commentProfileImg {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+  
+  .commentInput {
+    border: none;
+    width: 80%;
+    height: 50px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .commentInput:focus {
+    outline: none;
+  }
+
+  .commentSend:hover {
+    color: blue;
+    cursor: pointer;
+  }

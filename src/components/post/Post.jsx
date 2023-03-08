@@ -14,6 +14,7 @@ export default function Post({ post }) {
   const mediaUrl = `${process.env.REACT_APP_BASE_URL}/media`;
 
   const [like, setLike] = useState(post.like);
+  const [noCmts, setNoCmts] = useState(post.comments.length);
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [isExpandComment, setIsExpandComment] = useState(false);
   const [user, setUser] = useState({});
@@ -42,8 +43,8 @@ export default function Post({ post }) {
     } catch (err) {
       console.log(err);
     }
-    setLike(isLiked === "1" ? parseInt(like) - 1 : parseInt(like) + 1);
-    setIsLiked(isLiked === "0" ? "1" : "0");
+    setLike(isLiked == true ? parseInt(like) - 1 : parseInt(like) + 1);
+    setIsLiked(isLiked === false ? true : false);
   };
   let postOneImgUrl = "";
   if (post.mediaMaps?.length === 1) {
@@ -107,24 +108,24 @@ export default function Post({ post }) {
             )}
             <div className="postBottom">
               <div className="postBottomLeft">
-                <img
+                {/* <img
                   className="likeIcon"
                   src={`${PF}like.png`}
                   onClick={likeHandler}
                   alt=""
-                />
+                /> */}
                 <img
                   className="likeIcon"
                   src={`${PF}heart.png`}
                   onClick={likeHandler}
                   alt=""
                 />
-                {isLiked === "1" && (
+                {isLiked === true && (
                   <span className="postLikeCounter">
-                    You and {parseInt(like) - 1} others like it
+                    {parseInt(like) - 1 == 0 ? "Bạn đã thích" : `Bạn và ${parseInt(like) - 1 } người đã thích` }
                   </span>
                 )}
-                {isLiked === "0" && (
+                {isLiked === false && (
                   <span className="postLikeCounter">{like}</span>
                 )}
               </div>
@@ -140,13 +141,13 @@ export default function Post({ post }) {
                   // onClick={likeHandler}
                   alt=""
                 />
-                {/* <span className="postCommentText">{post.comment} comments</span> */}
+                <span className="postLikeCounter">{noCmts} comments</span>
               </div>
             </div>
             {/* <hr className="sidebarHr" /> */}
           </div>
 
-          {isExpandComment && <CommentExpand post={post} />}
+          {isExpandComment && <CommentExpand post={post} setNoCmts={setNoCmts}/>}
         </>
       </div>
     </>

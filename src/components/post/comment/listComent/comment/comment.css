@@ -39,3 +39,15 @@
     /* overflow:hidden;
     display:block; */
 }
+.topComment{
+    display: flex;
+    align-items: center;
+    /* flex-grow: 1;
+    flex-shrink: 1; */
+    
+}
+.cmtPopUp {
+    /* margin-left: 200px; */
+    flex-shrink: 4;
+
+}
