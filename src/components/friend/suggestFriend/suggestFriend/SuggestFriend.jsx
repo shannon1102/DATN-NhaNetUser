@@ -67,7 +67,7 @@ export default function SuggestFriend({  user,curUser  }) {
          {user?.same_friends + ' same friend'}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions className="cardAction">
         <Button size="medium" style={{ backgroundColor: "#2374E1", color:"#F3F8FE" }} onClick={handleAddClick}>
           Add
         </Button>

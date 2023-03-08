@@ -4,14 +4,15 @@ import "./featuredProperties.css";
 import { AuthContext } from "../../../context/AuthContext";
 import ProductCard from "./ProductCard";
 import { Paper } from "@material-ui/core";
+import Grid from "@mui/material/Grid";
+
 const FeaturedProperties = () => {
-  const baseURL = `${process.env.REACT_APP_BASE_URL}`
+  const baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
   const { data, loading, error } = useFetch(`${baseURL}/products`);
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
-
 
   const opts = {
     headers: {
@@ -26,44 +27,35 @@ const FeaturedProperties = () => {
         "Loading"
       ) : (
         <>
-          {data.map((item) => (
-           
-              <ProductCard item={item}></ProductCard>
+        {/* <Grid
+          container
+          spacing={2}
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          alignContent="stretch"
+          wrap="wrap"
+          
+        > */}
+          
 
-  
-            // <div className="fpItem" key={item.id}>
-            //   <img
-            //     src={process.env.REACT_APP_MEDIA_URL + "/" + item.featureImage.id}
-            //     alt=""
-            //     className="fpImg"
-            //   />
-            //   <span className="fpName">{item.title}</span>
-            //   <span className="fpCity">{item.description}</span>
-            //   <span className="fpPrice">{item.price || 1000000000} VNĐ</span>
-            //   {item.rating && <div className="fpRating">
-            //     <button>{item.rating}</button>
-            //     <span>Excellent</span>
-            //   </div>}
-            // </div>
-          ))}
-
-          <Paper>
-            <ProductCard></ProductCard>
-
-          </Paper>
-          <Paper>
-            <ProductCard></ProductCard>
-
-          </Paper>
-          <Paper>
-            <ProductCard></ProductCard>
-
-          </Paper>
-          <Paper>
-            <ProductCard></ProductCard>
-
-          </Paper>
-
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            alignContent="center"
+            wrap="wrap"
+          > 
+            {data.map((item) => (
+              <Grid item>
+                <Paper>
+                  <ProductCard item={item}></ProductCard>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
         </>
       )}
     </div>

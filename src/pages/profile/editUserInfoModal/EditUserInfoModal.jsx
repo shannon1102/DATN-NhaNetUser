@@ -1,29 +1,26 @@
 import { Button, CircularProgress } from "@material-ui/core";
 import { Cancel, CloseRounded, CloudUpload } from "@material-ui/icons";
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import AppButton from "../../../components/AppButton/AppButton";
 import "./editUserInforModal.css";
-
+import { AuthContext } from "../../../context/AuthContext";
 export default function EditUserInfoModal({ currentUser, setIsOpen }) {
   const username = useRef();
-  const description = useRef();
   const email = useRef();
   const phone = useRef();
   const address = useRef();
   const sex = useRef();
   const age = useRef();
-  const relationStatus = useRef();
-  const identityCardID = useRef();
-
   const [isLoading, setIsLoading] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const avatarUploadRef = useRef(null);
-  const coverUploadRef = useRef(null);
+
   const [updateAvatarUrl, setUpdateAvatarUrl] = useState(null);
   const [updateCoverUrl, setUpdateCoverUrl] = useState(null);
   const [fileCover, setFileCover] = useState(null);
   const [fileAvatar, setFileAvatar] = useState(null);
+  const { isFetching, dispatch } = useContext(AuthContext);
 
   // const { user } = useContext(AuthContext);
   const url = `${process.env.REACT_APP_BASE_URL}/me`;
@@ -43,15 +40,7 @@ export default function EditUserInfoModal({ currentUser, setIsOpen }) {
   fileOpts.headers.Authorization = "Bearer " + currentUser.token;
   opts.headers.Authorization = "Bearer " + currentUser.token;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // loginCall(
-    //   { phoneNumber: phoneNumber.current.value, password: password.current.value },
-    //   dispatch
-    // );
-  };
-
-  const submitHandler = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let params = {
@@ -84,17 +73,48 @@ export default function EditUserInfoModal({ currentUser, setIsOpen }) {
           params.avatar = uploadedAvatar.data.result[0].id;
         }
 
-        let updateInfo = await axios.put(url, params, opts);
-        console.log("updateInfo", updateInfo);
-
-        window.location.reload(true);
+        let res = await axios.put(url, params, opts);
+        let updatedInfo = res.data.result;
+        console.log("updateInfo", updatedInfo);
+        dispatch({
+          type: "EDIT_USER_SUCCESS",
+          payload: {
+            ...updatedInfo,
+            token: currentUser.token,
+          },
+        });
+        if(isFetching){
+          return <p>Loadinggg</p>
+        }else{
+          setIsOpen(false);
+          // window.location.reload(true);
+          
+        }
+        // window.location.reload(true);
       } catch (err) {
         console.log(err);
       }
     } else {
       try {
-        await axios.put(url, params, opts);
-        window.location.reload(true);
+        const res = await axios.put(url, params, opts);
+        let updatedInfo = res.data.result;
+        console.log("res Edittttt: ", res);
+        dispatch({
+          type: "EDIT_USER_SUCCESS",
+          payload: {
+            ...updatedInfo,
+            token: currentUser.token,
+          },
+        });
+        // console.log(user)
+        // window.location.reload(true);
+        if(isFetching){
+          return <p>Loadinggg</p>
+        }else{
+          setIsOpen(false);
+          // window.location.reload(true);
+          
+        }
       } catch (err) {}
     }
   };
@@ -319,6 +339,7 @@ export default function EditUserInfoModal({ currentUser, setIsOpen }) {
                 text="Cập nhật"
                 type="submit"
                 isLoading={isLoading}
+                onClick={handleSubmit}
                 addtionalStyles={{
                   width: "150px",
                   height: "46px",

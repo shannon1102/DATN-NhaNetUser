@@ -52,13 +52,14 @@ export default function Feed({ userID }) {
   };
   useEffect(() => {
     fetchPosts();
-  }, [userID, user.token]);
+  }, [userID, user.token,user.name,user.avatar,
+    user.phone,user.age,user.sex]);
 
   return (
     <>
       <div className="feed">
         <div className="feedWrapper">
-          {(!userID || userID === user.id) && <Share fetchPosts={fetchPosts} />}
+          {(!userID || userID === user.id) && <Share fetchPosts={fetchPosts} user={user} />}
 
           {posts.map((p) => (
             <Post key={p.id} post={p} />

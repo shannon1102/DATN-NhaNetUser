@@ -137,14 +137,14 @@ const DepositTable = () => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow >
-            <TableCell className="tableCell">Tracking ID</TableCell>
+            <TableCell className="tableCell">ID</TableCell>
             <TableCell className="tableCell">Product</TableCell>
-            <TableCell className="tableCell">Customer</TableCell>
-            <TableCell className="tableCell">Date</TableCell>
-            <TableCell className="tableCell">Amount</TableCell>
-            <TableCell className="tableCell">Payment Method</TableCell>
-            <TableCell className="tableCell">Status</TableCell>
-            <TableCell className="tableCell">Action</TableCell>
+            <TableCell className="tableCell">Người dùng</TableCell>
+            <TableCell className="tableCell">Ngày</TableCell>
+            <TableCell className="tableCell">Số tiền</TableCell>
+            <TableCell className="tableCell">Phương thức thanh toán</TableCell>
+            <TableCell className="tableCell">Trạng thái</TableCell>
+            <TableCell className="tableCell">Hành động</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -177,11 +177,8 @@ const DepositTable = () => {
                   <span className={`status ${row.status}`}>{row.status}</span>
                 </TableCell>
                 <TableCell className="tableCell">
-                  <Button className="actionBtn" variant="outlined" onClick={handelViewBtnClick}>
-                    View
-                  </Button>
                   <Button className="actionBtn" variant="outlined" onClick={handelDeleteBtnClick}>
-                    Delete
+                    Xóa
                   </Button>
                 </TableCell>
               </TableRow>

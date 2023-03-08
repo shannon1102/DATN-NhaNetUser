@@ -1,0 +1,85 @@
+.register {
+    width: 100vw;
+    height: 100vh;
+    background-color: #657DDF;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.register__building {
+    position: absolute;
+    top: 400px;
+    left: 6%;
+}
+
+.register__building img {
+    width: 50%;
+    object-fit: contain;
+}
+
+.register__box {
+    position: absolute;
+    top: 200px;
+    right: 15%;
+    width: 420px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.register__box-title {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    color: #5459AD;
+}
+
+.register__box-intro {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 7px;
+    margin-bottom: 30px;
+}
+
+.register__form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.register__input {
+    border-radius: 100px;
+    width: 360px;
+    height: 50px;
+    padding: 0px 20px 0px 50px;
+    outline: none;
+    background-color: #F8F9FE;
+    border: none
+}
+
+.register__input:hover {
+    box-shadow: 2px 4px 10px #B6BBFF;
+}
+
+.register__input-box:nth-child(n) {
+    margin-top: 15px;
+}
+
+.register__input-box {
+    position: relative;
+}
+
+.register__input-box img {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    width: 20px;
+}
+
+.register__forgot {
+    font-size: 14px;
+    text-decoration: underline;
+}

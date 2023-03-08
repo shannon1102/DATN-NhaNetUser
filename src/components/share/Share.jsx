@@ -17,9 +17,10 @@ const REQUEST_STATES = {
   FAIL: "FAIL",
 };
 
-export default function Share({ fetchPosts = () => {} }) {
+export default function Share({ fetchPosts = () => {},user}) {
   const mediaUrl = `${process.env.REACT_APP_BASE_URL}/media`;
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
+  console.log("User share",user);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [desc, setDesc] = useState();
   const [files, setFiles] = useState(null);

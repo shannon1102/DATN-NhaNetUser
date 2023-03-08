@@ -24,46 +24,6 @@ import HotelIcon from "@material-ui/icons/Hotel";
 import BathtubIcon from "@material-ui/icons/Bathtub";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import "./filterSidebar.css";
-// const useStyles = makeStyles((theme) => ({
-//   drawer: {
-//     width: "100%",
-//     flexShrink: 0,
-//     maxWidth: "400px"
-//   },
-//   drawerPaper: {
-//     width: "100%",
-//     maxWidth: "400px"
-//   },
-//   formControl:{
-//     width: "100%"
-
-//   },
-//   filterTitle: {
-//     marginTop: theme.spacing(2),
-//     marginBottom: theme.spacing(1),
-//     width: "100%"
-//   },
-//   filterSection: {
-//     marginTop: theme.spacing(2),
-//     marginBottom: theme.spacing(2),
-//   },
-//   filterOption: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     marginBottom: theme.spacing(1),
-//   },
-//   filterIcon: {
-//     marginRight: theme.spacing(1),
-//   },
-//   filterInput: {
-//     marginLeft: theme.spacing(2),
-//     width: '100%',
-//   },
-//   filterButton: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
-
 const FilterSidebar = () => {
   // const = useStyles();
 
@@ -95,34 +55,25 @@ const FilterSidebar = () => {
   const handleFilterSubmit = () => {
     // do something with the filter options
   };
-  const names = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
 
   return (
     <div className="sideBarFilter">
       <Paper>
-      <Typography variant="h6" className={"filterTitle"}>
-        Filter
+      <Typography  sx={{
+       
+
+      }} variant="h4" className={"filterBarTitle"}>
+        Bộ lọc tìm kiếm
       </Typography>
-      </Paper>
+      {/* </Paper> */}
 
       <Typography variant="h6" className={"filterTitle"}>
-        Location
+        Địa chỉ
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <FormControl className={"formControl"}>
-            <InputLabel id="location-city-label">City</InputLabel>
+            <InputLabel id="location-city-label">Tỉnh/Thành phố</InputLabel>
             <Select
              disableUnderline labelId="location-city-label" id="location-city-select">
               <MenuItem value="Hanoi">Hanoi</MenuItem>
@@ -133,7 +84,7 @@ const FilterSidebar = () => {
         </Grid>
         <Grid item xs={4}>
           <FormControl className={"formControl"}>
-            <InputLabel id="location-ward-label">Ward</InputLabel>
+            <InputLabel id="location-ward-label">Quận/Huyện</InputLabel>
             <Select
              disableUnderline labelId="location-ward-label" id="location-ward-select">
               <MenuItem value="NgocHa">Ngoc Ha</MenuItem>
@@ -145,7 +96,7 @@ const FilterSidebar = () => {
 
         <Grid item xs={4}> 
           <FormControl className={"formControl"}>
-            <InputLabel id="location-district-label">District</InputLabel>
+            <InputLabel id="location-district-label">Phường/Xã</InputLabel>
             <Select
              disableUnderline
               labelId="location-district-label"
@@ -161,40 +112,45 @@ const FilterSidebar = () => {
       <Divider />
       
       <Typography variant="h6" className={"filterTitle"}>
-        Price
+        Giá tiền
       </Typography>
       <List>
-        <ListItem>
+        <ListItem className={"filterSection"}>
           <ListItemText
-            primary="Price Range"
+            primary="Khoảng giá"
             secondary={
               <Slider
-                className={"slider"}
+                className={"sliderPrice"}
                 value={[minPrice, maxPrice]}
-                min={0}
-                max={1000000}
+                min={100000000}
+                max={10000000000}
                 onChange={(event, newValue) => {
                   handleMinPriceChange(event, newValue[0]);
                   handleMaxPriceChange(event, newValue[1]);
                 }}
                 valueLabelDisplay="auto"
+                sx={{
+                  // width: 300,
+                  color: 'success.main',
+                  backgrounColor : "none"
+                }}
               />
             }
           />
         </ListItem>
-        <ListItem>
+        <ListItem className={"filterSection"}>
           <TextField
-            label="Min Price"
+            label="Min"
             variant="outlined"
             size="small"
             type="number"
             value={minPrice}
             onChange={handleMinPriceChange}
             className={"filterInput"}
-          />
+          />&nbsp;
     
           <TextField
-            label="Max Price"
+            label="Max"
             variant="outlined"
             size="small"
             type="number"
@@ -208,52 +164,54 @@ const FilterSidebar = () => {
           <ListItemIcon className={"filterIcon"}>
             <HotelIcon />
           </ListItemIcon>
-          <Typography variant="subtitle1">Bedrooms</Typography>
+          <Typography variant="subtitle1">Phòng ngủ</Typography>
           <Select
            disableUnderline multiple value={numBedrooms}>
-            {names.map((name) => (
+            {/* {names.map((name) => (
               <MenuItem value="10">Ten</MenuItem>
               //  <MenuItem value="20">Twenty</MenuItem>
-            ))}
+            ))} */}
+            {[
+              <MenuItem value="1">1</MenuItem>,
+              <MenuItem value="2">2</MenuItem>,
+              <MenuItem value="3">3</MenuItem>,
+              <MenuItem value="4">4</MenuItem>,
+              <MenuItem value="5">5</MenuItem>
+            ]}
           </Select>
         </ListItem>
         <ListItem className={"filterSection"}>
           <ListItemIcon className={"filterIcon"}>
             <BathtubIcon />
           </ListItemIcon>
-          <Typography variant="subtitle1">Bathrooms</Typography>
+          <Typography variant="subtitle1">Phòng tắm: </Typography>
           <Select
            disableUnderline>
-            <MenuItem value="10">Ten</MenuItem>
-            <MenuItem value="20">Twenty</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5">5</MenuItem>
           </Select>
         </ListItem>
            
       <Typography variant="h6" className={"filterTitle"}>
         Diện tích
       </Typography>
-        {/* <ListItem className={"filterSection"}>
-          <ListItemIcon className={"filterIcon"}>
-            <BathtubIcon />
-          </ListItemIcon>
-          <Typography variant="subtitle1">Diện tích</Typography>
-
-            
-          </ListItem> */}
 
           <ListItem className={"filterSection"}>
           <TextField
-            label="Min Square"
+            label="Min"
             variant="outlined"
             size="small"
             type="number"
             value={minPrice}
             onChange={handleMinPriceChange}
             className={"filterInput"}
-          />
+          />&nbsp;
     
           <TextField
-            label="Max Square"
+            label="Max"
             variant="outlined"
             size="small"
             type="number"
@@ -270,8 +228,12 @@ const FilterSidebar = () => {
         className={"filterButton"}
         onClick={handleFilterSubmit}
       >
-        Filter
+        Tìm kiếm
       </Button>
+
+      </Paper>
+      {/* <Paper> */}
+     
     </div>
     // </Drawer>
   );

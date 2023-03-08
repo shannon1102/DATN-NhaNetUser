@@ -47,3 +47,16 @@
 .fpRating>span{
   font-size: 14px;
 }
+.productTitle{
+  color: #000  !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+}
+.priceProduct{
+  font-weight: 600 !important;
+  font-size: 30px !important;
+  color: "#21233" !important;
+}
+.productIcon{
+  color: #7A97FB
+}

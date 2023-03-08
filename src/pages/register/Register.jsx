@@ -1,10 +1,17 @@
 import axios from "axios";
-import { useRef } from "react";
-import "./register.css";
+import { forwardRef, useRef, useState } from "react";
+import "./registerAfter.css";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import AppButton from "../../components/AppButton/AppButton";
 
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 export default function Register() {
+  const [open, setOpen] = useState(false);
   const name = useRef();
   const email = useRef();
   const phone = useRef();
@@ -13,7 +20,13 @@ export default function Register() {
   const history = useHistory();
   console.log("BASEURLLLL", process.env.REACT_APP_BASE_URL);
   const baseURL = process.env.REACT_APP_BASE_URL;
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
+    setOpen(false);
+  };
   const handleClick = async (e) => {
     e.preventDefault();
     if (passwordAgain.current.value !== password.current.value) {
@@ -27,7 +40,12 @@ export default function Register() {
         phone: phone.current.value
       };
       try {
-        await axios.post(`${baseURL}/auth/register`, user);
+        const resp = await axios.post(`${baseURL}/auth/register`, user);
+        <Snackbar open={resp} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
         history.push("/login");
       } catch (err) {
         console.log(err);
@@ -36,58 +54,113 @@ export default function Register() {
   };
 
   return (
+    
     <div className="register">
-      <div className="registerWrapper">
-        <div className="registerLeft">
-          <h3 className="registerLogo">Lamasocial</h3>
-          <span className="registerDesc">
-            Connect with friends and the world around you on Lamasocial.
-          </span>
-        </div>
-        <div className="registerRight">
-          <form className="registerBox" onSubmit={handleClick}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 -1.5 15 7">
+        <path
+          d="M0 0 7 0Q9 0 9 2L9 3Q9 5 11 5L17 5M17 5 17-3 0-3 0 0"
+          fill="#ffffff"
+        />
+      </svg>
+      <div className="register__building">
+        <img src="assets/building.png" alt="" />
+      </div>
+      <div className="register__box">
+        <div className="register__box-title">Đăng ký</div>
+        <div className="register__box-intro">Đăng ký tài khoản vào hệ thống</div>
+        <form className="register__form" onSubmit={handleClick}>
+          <div className="register__input-box">
             <input
-              placeholder="Tên"
-              required
-              ref={name}
-              className="registerInput"
-            />
-             <input
-              placeholder="Số điện thoại"
-              required
-              ref={phone}
-              className="registerInput"
+              placeholder="Nhập địa chỉ email"
               type="tel"
-            />
-            <input
-              placeholder="Email"
-              required
+              className="register__input"
               ref={email}
-              className="registerInput"
-              type="tel"
             />
+            <img src="assets/email.png" alt="" />
+          </div>
+          <div className="register__input-box">
+            <input
+              placeholder="Nhập tên người dùng"
+              type="tel"
+              className="register__input"
+              ref={name}
+            />
+            <img src="assets/name.png" alt="" />
+          </div>
+          <div className="register__input-box">
+            <input
+              placeholder="Nhập số điện thoại"
+              type="tel"
+              className="register__input"
+              ref={phone}
+            />
+            <img src="assets/telephone.png" alt="" />
+          </div>
+          <div className="register__input-box">
             <input
               placeholder="Mật khẩu"
-              required
-              ref={password}
-              className="registerInput"
               type="password"
-              minLength="6"
+              className="register__input"
+              ref={password}
             />
+            <img src="assets/padlock.png" alt="" />
+          </div>
+          <div className="register__input-box">
             <input
               placeholder="Nhập lại mật khẩu"
-              required
-              ref={passwordAgain}
-              className="registerInput"
               type="password"
+              className="register__input"
+              ref={passwordAgain}
             />
-            <button className="registerButton" type="submit">
-              Sign Up
-            </button>
-            <button className="registerRegisterButton">Log into Account</button>
-          </form>
+            <img src="assets/padlock.png" alt="" />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "400px",
+            }}
+          >
+            <a href="#" className="register__forgot">
+              {/* Quên mật khẩu */}
+            </a>
+            <AppButton
+              text="Đăng ký"
+              type="submit"
+              // isLoading={isFetching}
+              addtionalStyles={{
+                margin: "15px",
+                width: "150px",
+              }}
+            ></AppButton>
+          </div>
+        </form>
+
+        <div
+          style={{
+            marginTop: "10px",
+          }}
+        >
+          <span
+            style={{
+              marginRight: "4px",
+            }}
+          >
+            Bạn đã có tài khoản?
+          </span>
+          <a
+            href="/register"
+            style={{
+              color: "var(--primary-color)",
+              fontWeight: "bold",
+            }}
+          >
+            Đăng nhập ngay
+          </a>
         </div>
       </div>
     </div>
+  
   );
 }

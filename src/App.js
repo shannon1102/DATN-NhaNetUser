@@ -26,6 +26,7 @@ import Review from "./components/markets/checkout/Review";
 
 import Deposit from "./pages/deposit/Deposit";
 import FilterSidebar from "./components/markets/filterSidebar/FilterSidebar";
+import PaySuccess from "./components/markets/checkout/PaySuccess";
 require("dotenv").config();
 
 function App() {
@@ -98,7 +99,7 @@ function App() {
           <ChatBox  />
         </PrivateRoute>
         <PrivateRoute path="/checkout">
-          <Checkout  />
+          <PaySuccess  />
         </PrivateRoute>
         <PrivateRoute path="/review">
           <Review  />

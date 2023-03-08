@@ -23,8 +23,9 @@ share {
 
 .shareInput {
     border: none;
-    width: 80%;
+    width: 100%;
     background-color: #F4F7FF;
+    padding: 10px;
 }
 
 .shareInput:focus {

@@ -8,14 +8,18 @@ import {
 } from "@material-ui/icons";
 
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import LogoutDropDown from "./logoutDropDown/LogoutDropDown";
 // import Popup from "../post/popup/PostHandlePopup";
 
-export default function Topbar({ isContainSearch }) {
+export default function Topbar({ isContainSearch}) {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  console.log("user in TopBar",user);
+  // useEffect(() => {
+  
+  // }, [user.avatar,user.name,user.email,user.age,user.sex,user.phone]);
   // let userID = user.id;
   return (
     <div className="topbarContainer">
@@ -47,13 +51,13 @@ export default function Topbar({ isContainSearch }) {
 
         <Link to={`/messenger`}>
           <div className="topbarIconItem">
-            <NotificationsNone
+            <ChatBubbleOutline
               style={{
                 color: "var(--primary-color)",
                 fontSize: "30px",
               }}
             />
-            <span className="topbarIconBadge">1</span>
+            {/* <span className="topbarIconBadge">1</span> */}
           </div>
         </Link>
         <span className="topBarRightAvatar">

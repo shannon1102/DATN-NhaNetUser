@@ -32,10 +32,12 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
+        <Link to={`/`} style={{ textDecoration: "none" }}>
           <li className="sidebarListItem">
             <RssFeed className="sidebarIcon" />
             <span className="sidebarListItemText">Trang chủ</span>
           </li>
+          </Link>
 
           <Link to={`/messenger`} style={{ textDecoration: "none" }}>
             <li className="sidebarListItem">
@@ -44,10 +46,10 @@ export default function Sidebar() {
             </li>
           </Link>
 
-          <li className="sidebarListItem">
+          {/* <li className="sidebarListItem">
             <PlayCircleFilledOutlined className="sidebarIcon" />
             <span className="sidebarListItemText">Videos</span>
-          </li>
+          </li> */}
           <Link to={`/friend`} style={{ textDecoration: "none" }}>
             <li className="sidebarListItem">
               <Group className="sidebarIcon" />
@@ -62,24 +64,26 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Market</span>
             </li>
           </Link>
+          <Link to={`/deposits`} style={{ textDecoration: "none" }}>
           <li className="sidebarListItem">
             <Event className="sidebarIcon" />
-            <span className="sidebarListItemText">Lịch trình</span>
+            <span className="sidebarListItemText">Giao dịch đặt cọc</span>
           </li>
+          </Link>
 
           <li className="sidebarListItem">
             <School className="sidebarIcon" />
-            <span className="sidebarListItemText">Courses</span>
+            <span className="sidebarListItemText">Giới thiệu</span>
           </li>
 
           <li className="sidebarListItem">
             <Bookmark className="sidebarIcon" />
-            <span className="sidebarListItemText">Bookmarks</span>
+            <span className="sidebarListItemText">Về chúng tôi</span>
           </li>
           <hr className="sidebarHr" />
           <li className="sidebarListItem">
             <HelpOutline className="sidebarIcon" />
-            <span className="sidebarListItemText">Questions</span>
+            <span className="sidebarListItemText">Câu hỏi</span>
           </li>
         </ul>
         <div className="sidebar__copyright">

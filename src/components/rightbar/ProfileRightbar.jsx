@@ -15,6 +15,9 @@ export default function ProfileRightbar({ userId }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // const [friends, setFriends] = useState([]);
   // const [user, setUser] = useState();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { user: currentUser } = useContext(AuthContext);
   const [isOpenEditUser, setIsOpenEditUser] = useState(false);
   const opts = {
@@ -23,11 +26,43 @@ export default function ProfileRightbar({ userId }) {
     },
   };
   opts.headers.Authorization = "Bearer " + currentUser.token;
+  const checkFriend = (curr, friends) => {
+    let check = false;
+    friends?.map((f) => {
+      if (f.id == curr.id) {
+        check = true;
+      }
+    });
+    return check;
+  };
+  useEffect(() => {
+    console.log("User InrightBar", currentUser);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${baseURL}/profile/${userId}`);
+        console.log("Response UseFetch", res);
+        setData(res.data.result);
+      } catch (err) {
+        setError(err);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, [
+    currentUser.name,
+    currentUser.avatar,
+    currentUser.phone,
+    currentUser.sex,
+    currentUser.email,
+    currentUser.address,
+    currentUser.age,
+    currentUser,
+    baseURL,
+    userId,
+  ]);
 
- 
-  const { data, loading, error } = useFetch(`${baseURL}/profile/${userId}`);
-
-  console.log("data",data);
+  console.log("data", data);
 
   const handleClick = async () => {};
 
@@ -46,27 +81,30 @@ export default function ProfileRightbar({ userId }) {
                 }}
               >
                 {<Create />}
-                <p>{"Edit information"}</p>
+                <p>{"Cập nhật"}</p>
               </button>
             )}
             <div className="rightBarBttn">
-            {data.id !== currentUser.id && (
-              <button className="rightbarFollowButton" onClick={handleClick}>
-                {data.is_friend == "true" ? "Unfriend" : "Add friend"}
-                {data.is_friend == "true" ? <Remove /> : <Add />}
-              </button>
-            )}
-            {data.id !== currentUser.id && <button className="rightbarFollowButton" onClick={handleClick}>
-              Nhắn tin
-            </button>}
-
+              {data.id !== currentUser.id && (
+                <button className="rightbarFollowButton" onClick={handleClick}>
+                  {checkFriend(currentUser, data?.friends)
+                    ? "Hủy bạn"
+                    : "Thêm bạn"}
+                  {/* {checkFriend(currentUser,data?.friends) ? <Remove /> : <Add />} */}
+                </button>
+              )}
+              {data.id !== currentUser.id && (
+                <button className="rightbarFollowButton" onClick={handleClick}>
+                  Nhắn tin
+                </button>
+              )}
             </div>
-        
-            <h4 className="rightbarTitle">User information</h4>
+
+            <h4 className="rightbarTitle">Thông tin người dùng</h4>
             <div className="rightbarInfo">
-              {data?.username && (
+              {data?.name && (
                 <div className="rightbarInfoItem">
-                  <span className="rightbarInfoKey">Username:</span>
+                  <span className="rightbarInfoKey">Tên:</span>
                   <span className="rightbarInfoValue">{data?.name}</span>
                 </div>
               )}
@@ -76,42 +114,94 @@ export default function ProfileRightbar({ userId }) {
                   <span className="rightbarInfoValue">{data?.description}</span>
                 </div>
               )}
+              {data?.email && (
+                <div className="rightbarInfoItem">
+                  <span className="rightbarInfoKey">Email:</span>
+                  <span className="rightbarInfoValue">{data?.email}</span>
+                </div>
+              )}
+              {data?.sex && (
+                <div className="rightbarInfoItem">
+                  <span className="rightbarInfoKey">Giới tính:</span>
+                  <span className="rightbarInfoValue">{data?.sex}</span>
+                </div>
+              )}
+              {data?.email && (
+                <div className="rightbarInfoItem">
+                  <span className="rightbarInfoKey">Tuổi:</span>
+                  <span className="rightbarInfoValue">{data?.age}</span>
+                </div>
+              )}
+              {data?.email && (
+                <div className="rightbarInfoItem">
+                  <span className="rightbarInfoKey">Điện thoại:</span>
+                  <span className="rightbarInfoValue">{data?.phone}</span>
+                </div>
+              )}
+              {data?.address && (
+                <div className="rightbarInfoItem">
+                  <span className="rightbarInfoKey">Địa chỉ:</span>
+                  <span className="rightbarInfoValue">{data?.address}</span>
+                </div>
+              )}
 
               <div className="rightbarInfoItem">
-                <span className="rightbarInfoKey">City:</span>
+                <span className="rightbarInfoKey">Thành phố:</span>
                 <span className="rightbarInfoValue">
-                  {data?.city || "Ha Noi"}
+                  {data?.city || "Hà Nội"}
                 </span>
               </div>
               <div className="rightbarInfoItem">
-                <span className="rightbarInfoKey">Country:</span>
+                <span className="rightbarInfoKey">Quốc gia:</span>
                 <span className="rightbarInfoValue">
-                  {data?.country || "Viet Nam"}
+                  {data?.country || "Việt Nam"}
                 </span>
               </div>
-              {data?.created && (
+              {data?.createdAt && (
                 <div className="rightbarInfoItem">
-                  <span className="rightbarInfoKey">Date Join:</span>
+                  <span className="rightbarInfoKey">Ngày tham gia:</span>
                   <span className="rightbarInfoValue">
-                    {format(data?.created)}
+                    {format(data?.createdAt)}
                   </span>
                 </div>
               )}
 
               <div className="rightbarInfoItem">
-                <span className="rightbarInfoKey">Relationship:</span>
+                <span className="rightbarInfoKey">Tình trạng quan hệ:</span>
                 <span className="rightbarInfoValue">
                   {data.relationship === 1
-                    ? "Single"
+                    ? "Độc thân"
                     : data?.relationship === 1
-                    ? "Married"
+                    ? "Đã cưới"
                     : "-"}
                 </span>
               </div>
             </div>
-            <h4 className="rightbarTitle">User friends</h4>
+            <h4 className="rightbarTitle">Danh sách bạn bè</h4>
             <div className="rightbarFollowings">
               {console.log("friends rightbar: ", data.friends)}
+              {data.friends?.map((friend) => (
+                <Link
+                  to={"/profile/" + friend.id}
+                  style={{ textDecoration: "none" }}
+                  key={friend.id}
+                >
+                  <div className="rightbarFollowing">
+                    <img
+                      src={
+                        friend?.avatar
+                          ? `${process.env.REACT_APP_MEDIA_URL}/${friend?.avatar}`
+                          : PF + "person/noAvatar.png"
+                      }
+                      alt=""
+                      className="rightbarFollowingImg"
+                    />
+                    <span className="rightbarFollowingName">
+                      {friend?.name || "user" + friend?.id.substring(0, 8)}
+                    </span>
+                  </div>
+                </Link>
+              ))}
               {data.friends?.map((friend) => (
                 <Link
                   to={"/profile/" + friend.id}

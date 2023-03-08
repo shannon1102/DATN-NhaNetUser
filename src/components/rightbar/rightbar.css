@@ -1,5 +1,6 @@
 .rightbar {
-    min-width: 600px;
+    min-width: 100px;
+    max-width: 350px
 }
 
 .rightbarWrapper {
@@ -21,13 +22,14 @@
 
 .birthdayText {
     font-weight: 300;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .rightbarAd {
     width: 100%;
     border-radius: 10px;
     margin: 25px 0;
+    /* max-width: 300px; */
 }
 
 .rightbarTitle {
@@ -38,6 +40,8 @@
     padding: 0;
     margin: 0;
     list-style: none;
+    max-width: 280px;
+    padding: "3px 0 0 5px";
 }
 
 .rightbarTitle {
@@ -68,6 +72,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    
 }
 
 .rightbarFollowing {

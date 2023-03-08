@@ -45,7 +45,7 @@ export default function Profile() {
       setUser(res.data.result);
     };
     fetchUser();
-  }, [userId]);
+  }, [userId,user.name,user.avatar,user.addess,user.sex,user.age]);
   console.log("dadadad", user);
   return (
     <>
