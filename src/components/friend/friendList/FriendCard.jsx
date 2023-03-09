@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import "./friend.css"
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 export default function FriendCard({ user,curUser }) {
 
   const opts = {
@@ -20,19 +21,26 @@ export default function FriendCard({ user,curUser }) {
   };
 
   opts.headers.Authorization = "Bearer " + curUser.token;
+  const histpry = useHistory();
 
-  const handleAcceptClick = async ()=>{
-  
+  const handleChatClick = async ()=>{
     try {
-
+      const data = {
+        firstUserId: curUser.id,
+        secondUserId: user.id
+      };
       const uri =
-        `${process.env.REACT_APP_BASE_URL}/friends`;
-      const acceptResponse = await axios.post(uri,{userId: user.id},opts);
-      console.log('friend Response: ', acceptResponse);
+        `${process.env.REACT_APP_BASE_URL}/chat/conversations`;
+      const createConversationResp = await axios.post(uri,data,opts);
+      console.log('createConversationResp: ', createConversationResp);
+      histpry.push("/messenger")
       window.location.reload(true);
+
     } catch (err) {
       console.log(err);
     }
+
+
   };
 
 
@@ -76,7 +84,7 @@ export default function FriendCard({ user,curUser }) {
         <Button
           size="medium"
           style={{ backgroundColor: "#2374E1", color: "#F3F8FE" ,width:"100%"}}
-          onClick={handleAcceptClick}
+          onClick={handleChatClick}
         >
           Nhắn tin
         </Button>

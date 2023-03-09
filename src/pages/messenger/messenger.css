@@ -6,19 +6,13 @@
   display: flex;
 }
 
-.chatMenu {
-  flex: 3.5;
-}
+
 
 .chatMenuInput {
-  width: 90%;
+  width: 100%;
   padding: 10px 0;
   border: none;
   border-bottom: 1px solid gray;
-}
-
-.chatBox {
-  flex: 5.5;
 }
 
 .chatBoxWrapper {
@@ -88,12 +82,12 @@
 }
 @media screen and (max-width: 768px) {
   .chatMenu {
-    flex: 1;
+    flex: 4;
   }
 
   .chatMessageInput {
     display: none;
-    min-width: 600px;
+    min-width: 300px;
   }
 
   .chatBox{
@@ -101,6 +95,6 @@
   }
 
   .chatOnline{
-    flex: 1px;
+    flex: 4;
   }
 }

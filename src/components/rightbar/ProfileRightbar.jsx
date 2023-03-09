@@ -8,9 +8,10 @@ import { Add, Remove, Create } from "@material-ui/icons";
 import EditUserInfoModal from "../../pages/profile/editUserInfoModal/EditUserInfoModal";
 import { format } from "timeago.js";
 import useFetch from "../../hooks/useFetch";
-
+import { useHistory } from "react-router-dom";
 export default function ProfileRightbar({ userId }) {
   console.log("user In Rightbar: ", userId);
+  const histpry = useHistory();
   const baseURL = `${process.env.REACT_APP_BASE_URL}`;
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // const [friends, setFriends] = useState([]);
@@ -64,7 +65,27 @@ export default function ProfileRightbar({ userId }) {
 
   console.log("data", data);
 
-  const handleClick = async () => {};
+  const handleChatClick = async () => {
+    try {
+      const data = {
+        firstUserId:currentUser.id,
+        secondUserId: userId
+      };
+      const uri =
+        `${process.env.REACT_APP_BASE_URL}/chat/conversations`;
+      const createConversationResp = await axios.post(uri,data,opts);
+      console.log('createConversationResp: ', createConversationResp);
+      histpry.push("/messenger")
+      window.location.reload(true);
+
+    } catch (err) {
+      console.log(err);
+    }
+
+
+  };
+  
+  const handleFriendClick = async () => {};
 
   return (
     <div className="rightbar">
@@ -86,7 +107,7 @@ export default function ProfileRightbar({ userId }) {
             )}
             <div className="rightBarBttn">
               {data.id !== currentUser.id && (
-                <button className="rightbarFollowButton" onClick={handleClick}>
+                <button className="rightbarFollowButton" onClick={handleFriendClick}>
                   {checkFriend(currentUser, data?.friends)
                     ? "Hủy bạn"
                     : "Thêm bạn"}
@@ -94,7 +115,7 @@ export default function ProfileRightbar({ userId }) {
                 </button>
               )}
               {data.id !== currentUser.id && (
-                <button className="rightbarFollowButton" onClick={handleClick}>
+                <button className="rightbarFollowButton" onClick={handleChatClick}>
                   Nhắn tin
                 </button>
               )}

@@ -87,8 +87,9 @@ export default function Messenger() {
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
+      console.log("ReciverDAtaaaaaaa",data);
       setArrivalMessage({
-        sender: data.sender,
+        user: data.sender,
         message: data.message,
         createdAt: Date.now(),
       });
@@ -135,23 +136,6 @@ export default function Messenger() {
     getConversations();
   }, [user]);
 
-  // useEffect(() => {
-  //   const getFriends = async () => {
-  //     try {
-  //       const baseURL = process.env.REACT_APP_BASE_URL;
-  //       const url =
-  //         `${baseURL}/friends?`;
-
-  //       const res = await axios.get(url,opts);
-  //       console.log('res: ', res);
-
-  //       setFriends(res?.data?.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getFriends();
-  // }, [user.id]);
   const classes = useStyles();
 
   useEffect(() => {
@@ -199,7 +183,7 @@ export default function Messenger() {
     setMessages((prev) => [
       ...prev,
       {
-        sender: user,
+        user: user,
         own: true,
         message: newMessage,
       },
@@ -229,10 +213,15 @@ export default function Messenger() {
   }, [messages]);
 
   const getSenderPartner = (currentChat, currentUser) => {
-    if ((currentUser.id = currentChat.firstUserId)) {
+    if (currentUser.id == currentChat.firstUserId) {
       return {
         senderId: currentChat.firstUserId,
         partnerId: currentChat.secondUserId,
+      };
+    }else {
+      return {
+        partnerId: currentChat.firstUserId,
+        senderId: currentChat.secondUserId,
       };
     }
   };
