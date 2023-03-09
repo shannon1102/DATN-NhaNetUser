@@ -6,7 +6,7 @@ import axios from "axios";
 import { MoreVert } from "@material-ui/icons";
 import { useState } from "react";
 import Modal from "../modal/Modal";
-export default function CommentHandlePopup({ comment, currentUser }) {
+export default function CommentHandlePopup({ comment, currentUser,listComments,setListComments,setNoCmts }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const open = Boolean(anchorEl);
@@ -31,6 +31,8 @@ export default function CommentHandlePopup({ comment, currentUser }) {
       const deleteResp = await axios.delete(uri, opts);
       console.log("deleteResp: ", deleteResp);
       setAnchorEl(null);
+      setListComments(listComments.filter(cmt=> cmt.id != comment.id))
+      setNoCmts(listComments.filter(cmt=> cmt.id != comment.id).length)
     //   window.location.reload(true);
     } catch (err) {
       console.log(err);

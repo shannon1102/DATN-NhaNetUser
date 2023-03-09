@@ -56,6 +56,12 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Bạn bè</span>
             </li>
           </Link>
+          <Link to={`/connect`} style={{ textDecoration: "none" }}>
+            <li className="sidebarListItem">
+              <PersonPin className="sidebarIcon" />
+              <span className="sidebarListItemText">Kết nối làm quen</span>
+            </li>
+          </Link>
 
           <hr className="sidebarHr" />
           <Link to={`/market`} style={{ textDecoration: "none" }}>

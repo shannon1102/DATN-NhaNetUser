@@ -1,32 +1,65 @@
 import * as React from "react";
-import { styled } from "@material-ui/core";
-import { Paper, Grid, Box } from "@material-ui/core";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+import { Grid, Paper } from "@material-ui/core";
+import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import { useEffect } from "react";
+import axios from "axios";
+import './friendList.css'
+import FriendCard from "./FriendCard";
 
 export default function FriendList() {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friends, setFriends] = useState([]);
+
+  const { user: currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+
+    const opts = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+  
+    opts.headers.Authorization = "Bearer " + currentUser.token;
+    const params = new URLSearchParams({
+      limit: 30,
+      offset: 0,
+    }).toString();
+    const url =
+      `${process.env.REACT_APP_BASE_URL}/friends`;
+    const fetchUser = async () => {
+      const res = await axios.get(url,opts);
+      console.log("res get request friend Info: ", res.data);
+      setFriends(res.data?.result);
+    };
+    fetchUser();
+  }, [currentUser]);
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <Item>xs=8</Item>
+    <>
+      <>
+        {friends?.length > 0 && (
+          <>
+           <Paper className="friendListTitle">
+              <h1>Danh sách tất cả người bạn</h1>
+              <hr className="hrFiend"></hr>
+           </Paper>
+          
+          </>
+        )}
+      </>
+
+        <Grid container spacing={3}>
+          {friends?.length > 0 &&
+            friends.map((friend) => (
+              <Grid item xs={3} key={friend.id}>
+                <FriendCard user={friend} curUser={currentUser}>
+                </FriendCard>
+              </Grid>
+            ))}
         </Grid>
-        <Grid item xs={3}>
-          <Item>xs=4</Item>
-        </Grid>
-        <Grid item xs={3}>
-          <Item>xs=4</Item>
-        </Grid>
-        <Grid item xs={3}>
-          <Item>xs=8</Item>
-        </Grid>
-      </Grid>
-    </Box>
+    </>
   );
 }

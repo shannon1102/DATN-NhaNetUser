@@ -6,7 +6,7 @@ import { Paper, Typography } from "@material-ui/core";
 import { format } from "timeago.js";
 import CommentHandlePopup from "../../../popup/CommentHandlePopup";
 import { AuthContext } from "../../../../../context/AuthContext";
-export default function Comment({ comment }) {
+export default function Comment({ comment ,listComments, setListComments,setNoCmts}) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
   return (
@@ -27,8 +27,11 @@ export default function Comment({ comment }) {
         </span>
         <CommentHandlePopup
           comment={comment}
+          listComments={listComments}
+          setListComments={setListComments}
           currentUser={currentUser}
           className="cmtPopUp"
+          setNoCmts={setNoCmts}
         ></CommentHandlePopup>
       </div>
       <div className="cmtRight">

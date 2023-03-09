@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import "./suggestFriend.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 export default function SuggestFriend({  user,curUser  }) {
   const opts = {
     headers: {
@@ -37,12 +38,13 @@ export default function SuggestFriend({  user,curUser  }) {
 
   const handleRemoveClick =async ()=>{
     try {
-      const params = {
-        requesterId:user.id,
+      const data ={
+        statusCode: 0,
+        userId: user.id
       };
       const uri =
-        `${process.env.REACT_APP_BASE_URL}/friends/accept-friend`;
-      const rejectesponse = await axios.post(uri,params,opts);
+        `${process.env.REACT_APP_BASE_URL}/friends/update-friend-status`;
+      const rejectesponse = await axios.post(uri,data,opts);
       window.location.reload(true);
       console.log('rejectesponse: ', rejectesponse);
     } catch (err) {
@@ -51,32 +53,36 @@ export default function SuggestFriend({  user,curUser  }) {
   };
 
   return (
-    <Paper>
-      <Card sx={{ maxWidth: 345 }}>
+    // <Paper>
+      <Card sx={{ minWidth: 345 ,maxWidth:400 }}>
+      <Link to={`/profile/${user.id}`}>
       <CardMedia
         component="img"
-        height="140"
+        height="250"
         image= { user?.avatar ? `${process.env.REACT_APP_MEDIA_URL}/${user?.avatar}` :  "/assets/person/noAvatar.png"}
         alt=""
-      />
+        />
+      </Link>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {user?.name || "user" + user?.id?.substring(0, 8)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-         {user?.same_friends + ' same friend'}
+         {user?.sameFriend + ' bạn chung'}
         </Typography>
       </CardContent>
       <CardActions className="cardAction">
-        <Button size="medium" style={{ backgroundColor: "#2374E1", color:"#F3F8FE" }} onClick={handleAddClick}>
-          Add
+        <Button className = "friendCardBtn"size="medium" style={{ width:"100%" ,backgroundColor: "#2374E1", color:"#F3F8FE" }} onClick={handleAddClick}>
+          Thêm bạn bè
         </Button>
-        <Button size="medium" style={{ backgroundColor: "#606770", color:"#F3F8FE" }} onClick={handleRemoveClick}>
-          Remove
+        </CardActions>
+        <CardActions className="cardAction">
+        <Button className ="friendCardBtn" size="medium" style={{  width:"100%" , backgroundColor: "#F0F2F5" }} onClick={handleRemoveClick}>
+          Xóa
         </Button>
       </CardActions>
     </Card>
-    </Paper>
+    // </Paper>
     
   );
 }

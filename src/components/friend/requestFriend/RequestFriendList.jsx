@@ -44,27 +44,23 @@ export default function RequestFriendList() {
         {requestUsers?.length > 0 && (
           <>
            <Paper className="friendListTitle">
-              <h1>Request Friends</h1>
+              <h1>Yêu cầu kết bạn</h1>
               <hr className="hrFiend"></hr>
            </Paper>
           
           </>
         )}
       </>
-      <Box
-        sx={{ flexGrow: 1 }}
-        // sx={{ width: 300 }}
-      >
+
         <Grid container spacing={3}>
           {requestUsers?.length > 0 &&
             requestUsers.map((requestUser) => (
-              <Grid item xs={2.5} key={requestUser.id}>
+              <Grid item xs={3} key={requestUser.id}>
                 <RequestFriend user={requestUser.requester} curUser={currentUser}>
                 </RequestFriend>
               </Grid>
             ))}
         </Grid>
-      </Box>
     </>
   );
 }

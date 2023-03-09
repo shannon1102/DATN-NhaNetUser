@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Comment from "./comment/Comment";
 
-export default function ListComment({ comments }) {
+export default function ListComment({ comments,setListComments,setNoCmts }) {
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function ListComment({ comments }) {
           return new Date(b.createdAt) - new Date(a.createdAt);
         })
         .map((cmt) => (
-          <Comment comment={cmt} />
+          <Comment comment={cmt}  listComments={comments} setListComments={setListComments} setNoCmts={setNoCmts}/>
         ))}
     </div>
   );

@@ -1,11 +1,10 @@
 import * as React from "react";
 import Topbar from "../../components/topbar/Topbar";
-import FriendList from "../../components/friend/friendList/FriendList";
 import RequestFriendList from "../../components/friend/requestFriend/RequestFriendList";
 import Sidebar from "../../components/sidebar/Sidebar";
-import "./friend.css";
+import "./connectPeople.css";
 import SuggestFriendList from "../../components/friend/suggestFriend/SuggestFriendList";
-export default function Friend() {
+export default function ConnectPeople() {
   return (
     <>
       <Topbar isContainSearch={true}/>

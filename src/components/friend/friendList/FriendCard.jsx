@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import {
   Card,
@@ -7,10 +8,10 @@ import {
   Typography,
   Button,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import "./requestItem.css";
 import axios from "axios";
-export default function RequestFriend({ user,curUser }) {
+import "./friend.css"
+import { Link } from "react-router-dom";
+export default function FriendCard({ user,curUser }) {
 
   const opts = {
     headers: {
@@ -23,12 +24,10 @@ export default function RequestFriend({ user,curUser }) {
   const handleAcceptClick = async ()=>{
   
     try {
-      const params = new URLSearchParams({
-        requesterId: user.id
-      });
+
       const uri =
-        `${process.env.REACT_APP_BASE_URL}/friends/accept-friend`;
-      const acceptResponse = await axios.post(uri,{requesterId: user.id},opts);
+        `${process.env.REACT_APP_BASE_URL}/friends`;
+      const acceptResponse = await axios.post(uri,{userId: user.id},opts);
       console.log('friend Response: ', acceptResponse);
       window.location.reload(true);
     } catch (err) {
@@ -57,6 +56,7 @@ export default function RequestFriend({ user,curUser }) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <Link to={`/profile/${user.id}`}>
+    
       <CardMedia
         component="img"
         height="250"
@@ -78,7 +78,7 @@ export default function RequestFriend({ user,curUser }) {
           style={{ backgroundColor: "#2374E1", color: "#F3F8FE" ,width:"100%"}}
           onClick={handleAcceptClick}
         >
-          Chấp nhận
+          Nhắn tin
         </Button>
         </CardActions>
         <CardActions className="cardAction">
@@ -87,7 +87,7 @@ export default function RequestFriend({ user,curUser }) {
           style={{ backgroundColor: "#606770", color: "#F3F8FE" ,width:"100%" }}
           onClick={handleRemoveClick}
         >
-          Xóa, gỡ bỏ
+          Xóa bạn
         </Button>
       </CardActions>
     </Card>

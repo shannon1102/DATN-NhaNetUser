@@ -1,0 +1,15 @@
+
+.hrFiend{
+    margin: 10px 0 10px 0;
+}
+.friendListTitle{
+    color: #5459AD !important;
+    font-family: "Roboto, sans-serif" !important;
+    
+}
+.cardActions{
+    display:flex !important;
+    flex-direction: column !important;
+    justify-content: "center" !important;
+    align-items : "center" !important;
+}

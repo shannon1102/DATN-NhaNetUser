@@ -45,7 +45,7 @@ export default function FeedRightbar() {
             </span>
           </div>
           <img className="rightbarAd" src="assets/ad.png" alt="" />
-          <h4 className="rightbarTitle">Online Friends</h4>
+          <h4 className="rightbarTitle">Bạn bè</h4>
           <ul className="rightbarFriendList">
             {friends.map((u) => (
               <Online key={u.id} userID={u.id} />

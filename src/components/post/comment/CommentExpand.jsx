@@ -63,7 +63,7 @@ export default function CommentExpand({ post, setNoCmts }) {
             <Send onClick={handleSendComment} className="commentSend" />
           </div>
         </>
-        <ListComment comments={comments} />
+        <ListComment comments={comments} setListComments={setComments} setNoCmts={setNoCmts}/>
       </>
     </div>
   );

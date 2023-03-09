@@ -42,29 +42,23 @@ export default function SuggestFriendList() {
         {suggestUser?.length > 0 && (
           <>
             <Paper className="friendListTitle">
-                  <h1>Suggested Friends</h1>
+                  <h1>Những người bạn có thể biết</h1>
                   <hr className="hrFiend"></hr>
             </Paper>
           
           </>
         )}
       </>
-
-      <Box
-        sx={{ flexGrow: 1 }}
-        // sx={{ width: 300 }}
-      >
         <Grid container spacing={3}>
           {suggestUser?.length > 0 &&
             suggestUser.map((user) => (
-              <Grid item xs={2.5} key={user.id}>
+              <Grid item xs={3} key={user.id}>
                 <SuggestFriend user={user} curUser={currentUser}>
                   {" "}
                 </SuggestFriend>
               </Grid>
             ))}
         </Grid>
-      </Box>
     </>
   );
 }

@@ -11,7 +11,6 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Messenger from "./pages/messenger/Messenger";
-import Friend from "./pages/friend/Friend";
 import PostDetail from "./pages/postDetail/PostDetail";
 import Renting from "./pages/renting/Renting";
 import CreatePost from "./pages/createpost/createPost";
@@ -27,6 +26,9 @@ import Review from "./components/markets/checkout/Review";
 import Deposit from "./pages/deposit/Deposit";
 import FilterSidebar from "./components/markets/filterSidebar/FilterSidebar";
 import PaySuccess from "./components/markets/checkout/PaySuccess";
+import ConnectPeople from "./pages/connectPeople/ConnectPeople";
+import FriendList from "./components/friend/friendList/FriendList";
+import Friends from "./pages/friends/Friends";
 require("dotenv").config();
 
 function App() {
@@ -50,7 +52,14 @@ function App() {
           path="/friend"
           exact
           allowVisit={!!user}
-          component={Friend}
+          component={Friends}
+          redirectTo={"/login"}
+        ></PrivateRoute>
+          <PrivateRoute
+          path="/connect"
+          exact
+          allowVisit={!!user}
+          component={ConnectPeople}
           redirectTo={"/login"}
         ></PrivateRoute>
         <PrivateRoute
