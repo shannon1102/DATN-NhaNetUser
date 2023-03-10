@@ -2,20 +2,16 @@ import React from "react";
 import Button from "@mui/material/Button";
 import ProductForm from "../../components/markets/productForm/ProductForm";
 import "./createPost.css";
-import { useState } from "react";
-// import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import { Wrapper } from "@googlemaps/react-wrapper";
-import MyMapComponent from "../../components/myMapComponent/MyMapComponent";
 
 import Footer from "../../components/markets/footer/MarketFooter";
-import Header from "../../components/markets/header/MarketHeader";
 import { Paper } from "@material-ui/core";
+import Topbar from "../../components/topbar/Topbar";
 
 export default function CreatePost({ user }) {
 
   return (
     <>
-      <Header />
+      <Topbar></Topbar>
       <div className="createPost">
         <Paper>
           <h1 className="createPost__title">Đăng tin mới</h1>

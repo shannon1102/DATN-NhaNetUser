@@ -41,7 +41,7 @@ export default function ProfileRightbar({ userId }) {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${baseURL}/profile/${userId}`);
+        const res = await axios.get(`${baseURL}/profile/${userId}`,opts);
         console.log("Response UseFetch", res);
         setData(res.data.result);
       } catch (err) {

@@ -7,10 +7,20 @@ import { useContext, useState } from "react";
 import { SearchContext } from "../../../context/SearchContext";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Reserve = ({ setOpen, hotelId }) => {
+
+  const {user} = useContext(AuthContext)
+  const opts = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  opts.headers.Authorization = "Bearer " + user.token;
   const [selectedRooms, setSelectedRooms] = useState([]);
-  const { data, loading, error } = useFetch(`/products/${hotelId}`);
+  const { data, loading, error } = useFetch(`/products/${hotelId}`,opts);
   const { dates } = useContext(SearchContext);
 
   const getDatesInRange = (startDate, endDate) => {

@@ -58,7 +58,7 @@ const Product = () => {
       })
   }
 
-  const { data, loading, error } = useFetch(`${baseURL}/products/${id}`);
+  const { data, loading, error } = useFetch(`${baseURL}/products/${id}`,opts);
   let payLoad = 
     {
       customerAddress: "string",

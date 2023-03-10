@@ -4,6 +4,7 @@ import Topbar from "../../components/topbar/Topbar";
 import DepositTable from "./table/DepositTable";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { Paper } from "@mui/material";
+import DepositTransactionTable from "./table/DepositTransactionTable";
 
 const Deposit = () => {
   return (
@@ -18,7 +19,10 @@ const Deposit = () => {
           </Paper>
 
           <div className="listContainer">
-            <DepositTable />
+            {/* <DepositTable /> */}
+            <Paper>
+              <DepositTransactionTable></DepositTransactionTable>
+            </Paper>
           </div>
         </div>
       </div>

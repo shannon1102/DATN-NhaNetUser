@@ -36,11 +36,11 @@ const List = () => {
 
   const { data, loading, error, reFetch } = useFetch(
     // `${baseURL}/products&min=${min || 0 }&max=${max || 999}`
-    `${baseURL}/products`
+    `${baseURL}/products`,opts
   );
 
   const handleClick = () => {
-    reFetch();
+    reFetch(opts);
   };
 
   return (

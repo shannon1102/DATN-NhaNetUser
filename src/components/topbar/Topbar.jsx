@@ -52,18 +52,9 @@ export default function Topbar({ isContainSearch}) {
         )}
 
       <div className="topbarRight">
-
-
-
-        <Link to={`/messenger`}>
+      <Link to={`/market/new`}>
           <div className="topbarIconItem">
-            <ChatBubbleOutline
-              style={{
-                color: "var(--primary-color)",
-                fontSize: "30px",
-              }}
-            />
-            {/* <span className="topbarIconBadge">1</span> */}
+          <AppButton text="Đăng bán"></AppButton>
           </div>
         </Link>
         <span className="topBarRightAvatar">

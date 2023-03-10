@@ -316,6 +316,28 @@ export default function AddressSelect({ label, placeholder }) {
             </Grid>
             <Grid item xs={6}>
               <FormHelperText className="metaDataForm__label">
+                Số nhà vệ sinh
+              </FormHelperText>
+              <Select
+                className="productFormSelect"
+                id="numBedRooms"
+                value={product.numBedRooms}
+                onChange={handleFormChange}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <MenuItem value={1}>
+                  <em>1</em>
+                </MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+                <MenuItem value={6}>6</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={6}>
+              <FormHelperText className="metaDataForm__label">
                 Số tầng
               </FormHelperText>
               <Select
