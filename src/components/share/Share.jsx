@@ -10,6 +10,7 @@ import AppButton from "../../components/AppButton/AppButton";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
+import useNotification from "../../hooks/useNotification";
 
 const REQUEST_STATES = {
   REQUEST: "REQUEST",
@@ -25,6 +26,7 @@ export default function Share({ fetchPosts = () => {},user}) {
   const [desc, setDesc] = useState();
   const [files, setFiles] = useState(null);
   const [postState, setPostState] = useState(null);
+  const [msg, sendNotification] = useNotification();
 
   const fileOpts = {
     headers: {
@@ -74,6 +76,9 @@ export default function Share({ fetchPosts = () => {},user}) {
 
         fetchPosts();
         setPostState(REQUEST_STATES.SUCCESS);
+     
+
+      sendNotification({msg: 'yourmessage', variant: 'error/info.....'})
       } catch (err) {
         console.log(err);
         setPostState(REQUEST_STATES.FAIL);

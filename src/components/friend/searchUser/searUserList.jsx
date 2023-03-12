@@ -5,13 +5,13 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { useEffect } from "react";
 import axios from "axios";
-import "./friendList.css";
-import FriendCard from "./FriendCard";
+import "./searchUserList.css";
+import SearchUserCard from "./SearchUserCard";
 import { SearchContext } from "../../../context/SearchContext";
 
-export default function FriendList() {
+export default function SearchUserList() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const [friends, setFriends] = useState([]);
+  const [searchUsers, setSearchUsers] = useState([]);
   const { search } = useContext(SearchContext);
 
   const { user: currentUser } = useContext(AuthContext);
@@ -28,35 +28,35 @@ export default function FriendList() {
       // limit: 30,
       // offset: 0,
     }).toString();
-    const url = `${process.env.REACT_APP_BASE_URL}/friends`;
+    const url = `${process.env.REACT_APP_BASE_URL}/users`;
     const fetchUser = async () => {
       const res = await axios.get(url, opts);
-      console.log("res get request friend Info: ", res.data);
-      setFriends(res.data?.result);
+      console.log("res get request SearchUser Info: ", res.data);
+      setSearchUsers(res.data?.result);
     };
     fetchUser();
   }, [currentUser, search]);
 
   return (
     <>
-      {/* {friends?.length > 0 && ( */}
+      {/* {SearchUsers?.length > 0 && ( */}
       <>
-        <Paper className="friendListTitle">
-          <h1>Danh sách tất cả người bạn</h1>
+        <Paper className="SearchUserListTitle">
+          <h1>Danh sách gười dùng</h1>
           <hr className="hrFiend"></hr>
         </Paper>
       </>
       {/* )} */}
 
       <Grid container spacing={3}>
-        {friends?.length > 0 &&
-          friends
+        {searchUsers?.length > 0 &&
+          searchUsers
             .filter((e) =>
               e?.name?.toLowerCase().includes(search?.toLowerCase())
             )
-            .map((friend) => (
-              <Grid item xs={3} key={friend.id}>
-                <FriendCard user={friend} curUser={currentUser}></FriendCard>
+            .map((searchUser) => (
+              <Grid item xs={3} key={searchUser.id}>
+                <SearchUserCard user={searchUser} curUser={currentUser}></SearchUserCard>
               </Grid>
             ))}
       </Grid>

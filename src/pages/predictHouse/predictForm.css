@@ -1,0 +1,54 @@
+
+.formAddress{
+    margin-left: 10px;
+}
+
+.address__label {
+    margin-left: 0 !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    color: #000 !important; 
+
+   
+}
+
+
+.metaDataForm__label {
+    margin-left: 0 !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    color: #000 !important; 
+   
+}
+.category__select{
+    padding: 0 0 0 0 !important;
+    width: 280px;
+}
+
+.uploadImg__icon{
+    font-size: 100px !important;
+}
+.submitBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.productFormSelect{
+    padding: 0 0 0 0 !important;
+    /* width: 280px; */
+}
+.productFormTextField{
+    padding: 0 0 0 0 !important;
+    width: 97%;
+    margin-right: 30px !important;
+}
+.productFormSubTextField{
+    padding: 0 0 0 0 !important;
+    width: 94%;
+    margin-right: 30px !important;
+}
+.productFormTextArea{
+    /* min-height: 200px; */
+    max-width: 580px;
+}

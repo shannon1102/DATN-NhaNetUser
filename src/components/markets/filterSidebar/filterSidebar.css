@@ -35,3 +35,6 @@
 .sliderPrice{
     background-color: "none" !important;
 }
+#location-ward-label{
+    width: 100%;
+}

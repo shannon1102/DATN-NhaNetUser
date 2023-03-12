@@ -39,6 +39,7 @@
     align-items: center;
     margin-left: 10px;
     overflow: hidden;
+    padding-right: 10px;
 }
 
 .searchbar:hover {
@@ -54,7 +55,8 @@
 .searchInput {
     border: none;
     width: 100%;
-    padding-left: 6px;
+    padding-left: 16px;
+
 }
 
 .searchInput:focus {

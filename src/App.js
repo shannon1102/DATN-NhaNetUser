@@ -12,7 +12,6 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Messenger from "./pages/messenger/Messenger";
 import PostDetail from "./pages/postDetail/PostDetail";
-import Renting from "./pages/renting/Renting";
 import CreatePost from "./pages/createpost/createPost";
 import PrivateRoute from "./shared/PrivateRoute";
 import Market from "./pages/market/Market";
@@ -29,6 +28,9 @@ import PaySuccess from "./components/markets/checkout/PaySuccess";
 import ConnectPeople from "./pages/connectPeople/ConnectPeople";
 import FriendList from "./components/friend/friendList/FriendList";
 import Friends from "./pages/friends/Friends";
+import SearchUserList from "./components/friend/searchUser/searUserList";
+import SearchUserPage from "./pages/searchUser/searchUserPage";
+import PredictPrice from "./pages/predictHouse/PredictPrice";
 require("dotenv").config();
 
 function App() {
@@ -84,14 +86,6 @@ function App() {
         >
           <PostDetail />
         </PrivateRoute>
-        <PrivateRoute
-          path="/renting"
-          allowVisit={!!user}
-          component={Renting}
-          redirectTo={"/login"}
-          user={user}
-        ></PrivateRoute>
-       
         <PrivateRoute path="/products/:id">
           <Product />
         </PrivateRoute >
@@ -117,8 +111,11 @@ function App() {
           <Deposit />
         </PrivateRoute>
 
-        <PrivateRoute path="/sideba">
-          <FilterSidebar />
+        <PrivateRoute path="/search-user">
+          <SearchUserPage />
+        </PrivateRoute>
+        <PrivateRoute path="/predict-price">
+          <PredictPrice />
         </PrivateRoute>
    
    

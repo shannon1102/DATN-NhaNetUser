@@ -5,6 +5,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import useFetch from '../../../hooks/useFetch';
 import axios from 'axios';
 import { useContext, useEffect, useState } from "react";
+import { format } from 'date-fns';
 
 
 export default function DepositTransactionTable() {
@@ -75,55 +76,47 @@ export default function DepositTransactionTable() {
             headerName: "Số điện thoại",
           },
           {
-            field: "customerAddress",
-            headerName: "Đại chỉ",
-          },
-          {
-            field: "paymentMethod",
-            headerName: "Phương thức thanh toán",
-          },
-          {
             field: "createdAt",
             headerName: "Ngày tạo",
+            renderCell: (params) => {
+
+            return  format(new Date(params.row.createdAt),"dd/MM/yyyy")
+            }
           },
           {
             field: "price",
             headerName: "Số tiền đặt cọc",
           },
-          {
-            field: "productId",
-            headerName: "ID sản phẩm",
-          },
-          {
-            field: "status",
-            headerName: "Trạng thái",
-          },
          {
           field: "ownerName",
           headerName: "Người bán",
           type: "text",
-          valueFormatter: ({ value }) => value.product.user.name 
+          renderCell: (params) => {
+            return <div className="rowitem">{params.row.product.user.name}</div>;
+          }
+        
         },
          {
           field: "ownerPhone",
-          headerName: "Điện thoại người bán",
+          headerName: "SĐT người bán",
           type: "text",
-          placeholder: "Số điện thoại chủ sở hữu",
+       
+          renderCell: (params) => {
+            return <div className="rowitem">{params.row.product.user?.phone || ""}</div>;
+          }
         }, {
           field: "productId",
-          headerName: "productId",
+          headerName: "ID SP",
           type: "text",
-          placeholder: "ID sản phẩm",
         },
-        // {
-        //   field: 'fullName',
-        //   headerName: 'Full name',
-        //   description: 'This column has a value getter and is not sortable.',
-        //   sortable: false,
-        //   width: 160,
-        //   valueGetter: (params) =>
-        //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-        // }
+        {
+          field: "productName",
+          headerName: "Tiêu đề",
+          type: "text",
+          renderCell: (params) => {
+            return <div className="rowitem">{params.row.product.title || ""}</div>;
+          }
+        }
       ];
       
       

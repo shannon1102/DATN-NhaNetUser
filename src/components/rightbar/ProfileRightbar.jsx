@@ -223,28 +223,6 @@ export default function ProfileRightbar({ userId }) {
                   </div>
                 </Link>
               ))}
-              {data.friends?.map((friend) => (
-                <Link
-                  to={"/profile/" + friend.id}
-                  style={{ textDecoration: "none" }}
-                  key={friend.id}
-                >
-                  <div className="rightbarFollowing">
-                    <img
-                      src={
-                        friend?.avatar
-                          ? `${process.env.REACT_APP_MEDIA_URL}/${friend?.avatar}`
-                          : PF + "person/noAvatar.png"
-                      }
-                      alt=""
-                      className="rightbarFollowingImg"
-                    />
-                    <span className="rightbarFollowingName">
-                      {friend?.name || "user" + friend?.id.substring(0, 8)}
-                    </span>
-                  </div>
-                </Link>
-              ))}
             </div>
             {isOpenEditUser && (
               <EditUserInfoModal

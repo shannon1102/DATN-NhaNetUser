@@ -1,15 +1,7 @@
 import "./product.css";
-import Header from "../../components/markets/header/MarketHeader";
 import MailList from "../../components/markets/mailList/MailList";
 import Footer from "../../components/markets/footer/MarketFooter";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleArrowLeft,
-  faCircleArrowRight,
-  faCircleXmark,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import useFetch from "../../hooks/useFetch";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -21,11 +13,20 @@ import Topbar from "../../components/topbar/Topbar";
 import ProductMedia from "./productMedia/ProductMedia";
 import { Box, Typography } from "@mui/material";
 import { Divider } from "@material-ui/core";
-import { format } from "date-fns";
 import axios from "axios";
+import PlaceIcon from "@material-ui/icons/Place";
+import GoogleMapReact from "google-map-react";
+import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
+import { red } from "@mui/material/colors";
+
+const AnyReactComponent = ({ text }) => (
+  <div>
+    <PlaceIcon style={{ color: red[500] }} fontSize="large"></PlaceIcon>
+  </div>
+);
+
 const Product = () => {
   const baseURL = `${process.env.REACT_APP_BASE_URL}`;
-
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser } = useContext(AuthContext);
 
@@ -41,38 +42,65 @@ const Product = () => {
   console.log("Vao Hotels");
 
   const [openModal, setOpenModal] = useState(false);
-  
+  const [geo, setGeo] = useState({});
+
   const history = useHistory();
-  const handelDeposit = (payload)=> {
-    axios.post(`${process.env.REACT_APP_BASE_URL}/payments`,
-      payLoad,opts)
-      .then((res)=>{
-        console.log("Resss",res);
+  const handelDeposit = (payload) => {
+    axios
+      .post(`${process.env.REACT_APP_BASE_URL}/payments`, payLoad, opts)
+      .then((res) => {
+        console.log("Resss", res);
 
-        if(res.data.result.url) {
-
-          window.location.assign(res.data.result.url)
+        if (res.data.result.url) {
+          window.location.assign(res.data.result.url);
         }
-      }).catch((err)=>{
-        console.log(err);
       })
-  }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const { data, loading, error } = useFetch(`${baseURL}/products/${id}`,opts);
-  let payLoad = 
-    {
-      customerAddress: "string",
-      price: data.price,
-      customerEmail: currentUser.email,
-      customerName:currentUser.name,
-      customerPhone: currentUser.phone,
-      productId: +id,
-      paymentMethod:"card",
-      status:"sucssess",
-  }
+  const { data, loading, error } = useFetch(`${baseURL}/products/${id}`, opts);
+  console.log("dataaaaaaaaa", data);
+  useEffect(() => {
+    const fetchGEO = async () => {
+      let geoStr = "";
+      if (data.city) {
+        geoStr = data?.city;
+      }
+      if (data.district) {
+        geoStr = data?.district + "," + data?.city;
+      }
+      if (data.street) {
+        geoStr = data.street + "," + data?.district + "," + data?.city;
+      }
+      console.log("Geooo stringgg", geoStr);
+      if (data.street != "") {
+        try {
+          let response = await geocodeByAddress(geoStr);
+          console.log("GEOOOOOOO", response);
+          let geoCode = await getLatLng(response[0]);
+          setGeo(geoCode);
+          console.log("GEOOOOOOO", geoCode);
+        } catch (e) {
+          setGeo({ lat: 21.0278, lng: 105.8342 });
+        }
+      }
+    };
+    fetchGEO();
+  }, [data]);
+
+  let payLoad = {
+    customerAddress: "string",
+    price: data.price,
+    customerEmail: currentUser.email,
+    customerName: currentUser.name,
+    customerPhone: currentUser.phone,
+    productId: +id,
+    paymentMethod: "card",
+    status: "sucssess",
+  };
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
-
-
 
   return (
     <div>
@@ -89,11 +117,17 @@ const Product = () => {
                 <h1 className="hotelTitle">{data.name}</h1>
                 <span className="hotelDistance">
                   Địa chỉ: –{" "}
-                  {data.address ||
-                    "Số 28 , Đường Giải Phóng, Quận Hai Bà Trưng"}
+                  {(data?.detailAddress || "") +
+                    ", " +
+                    (data?.ward || "") +
+                    ", " +
+                    (data?.district || "") +
+                    ", " +
+                    (data?.city || "")}
                 </span>
                 <span className="hotelPriceHighlight">
-                  Bán căn hộ Vinhomes Grand Park Quận Hai Bà Trưng
+                  {data?.title ||
+                    "Bán căn hộ Vinhomes Grand Park Quận Hai Bà Trưng"}
                 </span>
 
                 <ProductMedia product={data}></ProductMedia>
@@ -115,7 +149,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Giá bán: " + (data.price || "2,9 tỷ")}
+                        {"Giá bán: " + (data?.price || "2,900,000") + "VNĐ"}
                       </Typography>
                       <Divider></Divider>
 
@@ -133,13 +167,12 @@ const Product = () => {
 
                       <Typography
                         sx={{
-                          fontFamily: "Lato",
                           padding: "10px 0px",
                         }}
                         variant="h7"
                         gutterBottom
                       >
-                        {"Số phòng ngủ:" + data.numOfBedrooms}
+                        {"Số phòng ngủ:" + data.numBedRooms}
                       </Typography>
                       <Divider></Divider>
 
@@ -151,7 +184,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Số phòng tắm: " + data.numOfBathrooms}
+                        {"Số tầng: " + data.numFloors}
                       </Typography>
                       <Divider></Divider>
 
@@ -163,7 +196,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Số tầng:" + data.numOfFloors}
+                        {"Diện tích: " + data.squaredMeterArea + "m2"}
                       </Typography>
                       <Divider></Divider>
 
@@ -175,19 +208,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Diện tích: " + data.squaredMeterArea}
-                      </Typography>
-                      <Divider></Divider>
-
-                      <Typography
-                        sx={{
-                          fontFamily: "Lato",
-                          padding: "10px 0px",
-                        }}
-                        variant="h7"
-                        gutterBottom
-                      >
-                        {"Chiều dài: " + data.lengthMeter}
+                        {"Chiều dài: " + data.lengthMeter + "m"}
                       </Typography>
                       <Divider></Divider>
                       <Typography
@@ -198,7 +219,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Chiều rộng: " + data.widthMeter}
+                        {"Chiều rộng: " + data.widthMeter + "m"}
                       </Typography>
                       <Divider></Divider>
                       <Typography
@@ -209,18 +230,8 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Dịa chỉ: " + data.address || "Hà Đông, Hà Nội"}
-                      </Typography>
-                      <Divider></Divider>
-                      <Typography
-                        sx={{
-                          fontFamily: "Lato",
-                          padding: "10px 0px",
-                        }}
-                        variant="h7"
-                        gutterBottom
-                      >
-                        {"Sổ đỏ: " + data.address || "Chưa có"}
+                        {"Sổ đỏ: " +
+                          (data.certificateOfland == 0 ? "Chưa có" : "Đã có")}
                       </Typography>
                       <Divider></Divider>
                     </Box>
@@ -242,13 +253,20 @@ const Product = () => {
                       variant="h7"
                       gutterBottom
                     >
-                      {"Địa chỉ: " + data.description}
+                      {"Địa chỉ: " +
+                        (data?.detailAddress || "") +
+                        ", " +
+                        (data?.ward || "") +
+                        ", " +
+                        (data?.district || "") +
+                        ", " +
+                        (data?.city || "")}
                     </Typography>
                   </div>
                 </div>
               </div>
               <div className="userAndDeposit">
-                <SingleUser></SingleUser>
+                <SingleUser user={data?.user}></SingleUser>
                 <div className="hotelDetailsPrice">
                   {/* <h1></h1> */}
                   <span>{data.title}</span>
@@ -263,29 +281,38 @@ const Product = () => {
                   {/* <Link to={`/checkout`} style={{ textDecoration: "none", width: "100%",
                       display: "flex"
                    }}> */}
-                    <AppButton
-                      text={"Đặt cọc ngay"}
-                      onClick={handelDeposit}
-                    ></AppButton>
+                  <AppButton
+                    text={"Đặt cọc ngay"}
+                    onClick={handelDeposit}
+                  ></AppButton>
                   {/* </Link> */}
                 </div>
               </div>
             </div>
             <div className="productMapContainer">
-              <iframe
-                class="gmapIframeProductDtail"
-                width="100%"
-                frameborder="0"
-                scrolling="no"
-                marginheight="0"
-                marginwidth="0"
-                src="https://maps.google.com/maps?width=1200&amp;height=800&amp;hl=en&amp;q=Hà Nội&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-              ></iframe>
+              <div style={{ height: "50vh", width: "80%" }}>
+                <GoogleMapReact
+                  bootstrapURLKeys={{
+                    key: process.env.REACT_APP_GOOGLE_MAP_KEY,
+                  }}
+                  defaultCenter={{
+                    lat: geo?.lat || 21.0278,
+                    lng: geo?.lng || 105.8342,
+                  }}
+                  defaultZoom={16}
+                >
+                  <AnyReactComponent
+                    lat={geo?.lat || 21.0278}
+                    lng={geo?.lng || 105.8342}
+                    text="My Marker"
+                  />
+                </GoogleMapReact>
+              </div>
             </div>
-            <br></br>
-            <MailList />
-            <Footer />
           </div>
+          <br></br>
+          <MailList />
+          <Footer />
         </div>
       )}
       {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}

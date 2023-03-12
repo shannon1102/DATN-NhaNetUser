@@ -1,15 +1,17 @@
 import axios from "axios";
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState,Fragment } from "react";
 import "./registerAfter.css";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import AppButton from "../../components/AppButton/AppButton";
 
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-const Alert = forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+
+import { AccessAlarm, Close } from '@material-ui/icons';
+import Stack from "@mui/material/Stack";
+import MuiAlert from "@mui/material/Alert";
 export default function Register() {
   const [open, setOpen] = useState(false);
   const name = useRef();
@@ -20,13 +22,33 @@ export default function Register() {
   const history = useHistory();
   console.log("BASEURLLLL", process.env.REACT_APP_BASE_URL);
   const baseURL = process.env.REACT_APP_BASE_URL;
+  
+  const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
   };
+  const action = (
+    <Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <Close fontSize="small" />
+      </IconButton>
+    </Fragment>
+  );
+
   const handleClick = async (e) => {
     e.preventDefault();
     if (passwordAgain.current.value !== password.current.value) {
@@ -41,11 +63,8 @@ export default function Register() {
       };
       try {
         const resp = await axios.post(`${baseURL}/auth/register`, user);
-        <Snackbar open={resp} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </Alert>
-      </Snackbar>
+        
+        setOpen(true);
         history.push("/login");
       } catch (err) {
         console.log(err);
@@ -54,6 +73,7 @@ export default function Register() {
   };
 
   return (
+    <>
     
     <div className="register">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 -1.5 15 7">
@@ -161,6 +181,17 @@ export default function Register() {
         </div>
       </div>
     </div>
-  
+    <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Note archived"
+        action={action}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
+  </>
   );
 }

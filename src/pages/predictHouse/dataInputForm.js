@@ -279,25 +279,25 @@ let ammm = ['num_floors',
     'ward_Đức Giang',
     'ward_Đức Thắng']
 
-
-// let genInput = (num_floors: number, num_bed_rooms: number, squared_meter_area: number, length_meter: number, width_meter: number,
-//     housing_type: number, legal_paper: number, addrress: number) => {
-//             let returnObj = a.map( key =>{
-//                 if(key == 'num_floors'){
-//                     // returnObj[key] = num_floors
-
-//                 }
-
-//             }
-
-// }
+// 'num_floors',
+//     'num_bed_rooms',
+//     'squared_meter_area',
+//     'length_meter',
+//     'width_meter',
+//     'housing_type_Nhà biệt thự',
+//14 cau giay
+//31 Ha don
 export const genInput = ()=>{
-    let a= [4,4,45,5,9,1,0,0,0,1,0,0,1];
+    // let a= [4,4,45,5,9,1,0,0,0,1,0,0,1];
+    let a= [5,5,24,4,6,0,1,0,0,1,0,0,0];
     for(let i=13;i<280;i++) {
-        a[i]=0
-
+        if(i==26) {
+            a[i]=1
+        }else{
+            a[i]=0
+        }
     }
-    console.log(a.length,ammm.length);
+    console.log("aaaaaaa",a,a.length,ammm.length);
     return a;
   
 }

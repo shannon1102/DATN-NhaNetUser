@@ -1,8 +1,16 @@
-import { useContext, useRef } from "react";
+import { Fragment, forwardRef, useContext, useRef, useState } from "react";
 import "./login.css";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import AppButton from "../../components/AppButton/AppButton";
+
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+
+import { AccessAlarm, Close } from '@material-ui/icons';
+import Stack from "@mui/material/Stack";
+import MuiAlert from "@mui/material/Alert";
 require("dotenv").config();
 
 export default function Login() {
@@ -18,10 +26,45 @@ export default function Login() {
         password: password.current.value,
       },
       dispatch
-    );
+      );
+      setOpen(true);
+  
+  };
+  const Alert =forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const [open, setOpen] = useState(false);
+
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
-  return (
+  const action = (
+    <Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <Close fontSize="small" />
+      </IconButton>
+    </Fragment>
+  );
+
+
+  return (<>
     <div className="login">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="2 -1.5 15 7">
         <path
@@ -101,5 +144,17 @@ export default function Login() {
         </div>
       </div>
     </div>
+    <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Note archived"
+        action={action}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
+    </>
   );
 }

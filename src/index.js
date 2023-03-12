@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { AuthContextProvider } from "./context/AuthContext";
-require('dotenv').config()
+import { SearchContextProvider } from "./context/SearchContext";
+require("dotenv").config();
 ReactDOM.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <SearchContextProvider>
+        <App />
+      </SearchContextProvider>
     </AuthContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

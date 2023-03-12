@@ -1,0 +1,47 @@
+.predict{
+    display: flex;
+}
+.createPost{
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+
+.createPost__title{
+    padding: 20px 0px;
+    border-bottom: 0.4px solid #414141;
+}
+.addressSelect__title{
+    padding: 20px 0px;
+    /* border-top: 1px solid #000000; */
+  
+}
+.addressSelect__container{
+    display: flex;
+
+}
+.uploadImg__container{
+    display: flex;
+    border: 1px dashed #000;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+    width: 600px;
+}
+.uploadImg__icon{
+    font-size: 100px !important;
+}
+.submitBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+/* .createPost__address{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+.map__container{
+    display: flex;
+    width: 90%;
+}

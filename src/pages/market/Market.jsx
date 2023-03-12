@@ -6,16 +6,13 @@ import MailList from "../../components/markets/mailList/MailList";
 import PropertyList from "../../components/markets/propertyList/PropertyList";
 import "./market.css";
 import Topbar from "../../components/topbar/Topbar";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Rightbar from "../../components/rightbar/ProfileRightbar";
 import TopSlideshow from "../../components/topSlideShow/TopSlideshow";
-import FilterProduct from "../../components/markets/filterDrawer/FilterProduct";
 import FilterSidebar from "../../components/markets/filterSidebar/FilterSidebar";
 const Market = () => {
   return (
     <div>
       {/* <Navbar /> */}
-      <Topbar></Topbar>
+      <Topbar isContainSearch={true}></Topbar>
 
       {/* <Header/> */}
       <TopSlideshow></TopSlideshow>

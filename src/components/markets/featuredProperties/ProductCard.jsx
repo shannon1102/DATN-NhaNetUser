@@ -3,6 +3,7 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
+import HouseIcon from '@material-ui/icons/House';
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -33,6 +34,9 @@ export default function ProductCard({ item }) {
           fontSize="md"
           sx={{ mb: 0.5 }}
           className="productTitle"
+          height={80}
+          maxHeight={80}
+          minHeight={80}
         >
           {item.title || "Yosemite National Park"}
         </Typography>
@@ -59,8 +63,8 @@ export default function ProductCard({ item }) {
               Giá:
             </Typography>
             <Typography fontSize="lg" fontWeight="lg">
-              {"$" + item.price ||
-                Math.floor(Math.random() * (10000 - 1000 + 1) + 1)}
+              {(item.price ||
+                Math.floor(Math.random() * (10000 - 1000 + 1) + 1) ) +  " VNĐ" }
             </Typography>
           </div>
           
@@ -69,6 +73,7 @@ export default function ProductCard({ item }) {
               size="sm"
               color="primary"
               aria-label="Explore Bahamas Islands"
+              text="Xem chi tiết"
             
               sx={{
                 ml: "auto",
@@ -77,6 +82,8 @@ export default function ProductCard({ item }) {
                 backgroundColor: "#4F59D4",
                 height: "45px",
                 borderRadius: "23px",
+                ":hover": {  backgroundColor: "#606adb" }
+            
               }}
 
               onClick= {()=>{
@@ -102,25 +109,24 @@ export default function ProductCard({ item }) {
             level="body3"
             sx={{ fontWeight: "md", color: "text.secondary" }}
           >
-            {item.numOfBedrooms ||
-              Math.floor(Math.random() * (6 - 1 + 1) + 1) + " Phòng ngủ"}
+            {(item.numBedRooms || Math.floor(Math.random() * (6 - 1 + 1) + 1)) + " Phòng ngủ"}
           </Typography>
           <Divider orientation="vertical" />
-          <BathtubIcon className="productIcon" />
+          <HouseIcon className="productIcon" />
           <Typography
             level="body3"
             sx={{ fontWeight: "md", color: "text.secondary" }}
           >
-            {item.numOfBathrooms ||
-              Math.floor(Math.random() * (5 - 1 + 1) + 1) + " Phòng tắm"}
+            {(item.numFloors ||
+              Math.floor(Math.random() * (5 - 1 + 1) + 1)) + " Tầng"}
           </Typography>
           <DashboardIcon className="productIcon" />
           <Typography
             level="body3"
             sx={{ fontWeight: "md", color: "text.secondary" }}
           >
-            {item.squareArea ||
-              Math.floor(Math.random() * (100 - 20 + 1) + 1) + "m2"}
+            {(item.squaredMeterArea ||
+              Math.floor(Math.random() * (100 - 20 + 1) + 1)) + " m2"}
           </Typography>
         </CardOverflow>
       </Card>

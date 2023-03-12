@@ -1,0 +1,12 @@
+.friendPageContainer{
+    display: flex;
+    width: 100%;
+    margin-right: 50px;
+}
+.friendContainer{
+    display: flex;
+    /* width: 60%; */
+    flex:8;
+    flex-direction: column;
+   
+}
