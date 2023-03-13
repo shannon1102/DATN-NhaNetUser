@@ -84,17 +84,17 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Giao dịch đặt cọc</span>
             </li>
           </Link>
-          {/* <Link to={`/deposits`} style={{ textDecoration: "none" }}>
-            <li className="sidebarListItem">
-              <StoreOutlined className="sidebarIcon" />
-              <span className="sidebarListItemText">Quản lý tin bán</span>
-            </li>
-          </Link> */}
           <hr className="sidebarHr" />
           {/* <li className="sidebarListItem">
             <Bookmark className="sidebarIcon" />
             <span className="sidebarListItemText">Về chúng tôi</span>
           </li> */}
+          <Link to={`/manage-product`} style={{ textDecoration: "none" }}>
+            <li className="sidebarListItem">
+              <StoreOutlined className="sidebarIcon" />
+              <span className="sidebarListItemText">Quản lý tin bán</span>
+            </li>
+          </Link>
           <Link to="/predict-price">
             <li className="sidebarListItem">
               <HelpOutline className="sidebarIcon" />

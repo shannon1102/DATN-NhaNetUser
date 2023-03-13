@@ -32,6 +32,7 @@ import SearchUserList from "./components/friend/searchUser/searUserList";
 import SearchUserPage from "./pages/searchUser/searchUserPage";
 import PredictPrice from "./pages/predictHouse/PredictPrice";
 import SearchItem from "./components/markets/searchItem/SearchItem";
+import ManageProduct from "./pages/manageProduct/ManageProduct";
 require("dotenv").config();
 
 function App() {
@@ -99,8 +100,8 @@ function App() {
         <PrivateRoute path="/products">
           <List  />
         </PrivateRoute>
-        <PrivateRoute path="/testcomponent">
-          <ChatBox  />
+        <PrivateRoute path="/manage-product">
+          <ManageProduct  />
         </PrivateRoute>
         <PrivateRoute path="/checkout">
           <PaySuccess  />

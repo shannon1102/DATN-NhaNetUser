@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import "./online.css";
 import { Paper } from "@mui/material";
 
-export default function Online({ userID }) {
+export default function Online({ userID ,isInChat }) {
   const { user: currentUser } = useContext(AuthContext);
   const [onlineUser, setOnlineUser] = useState(null);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -47,7 +47,7 @@ export default function Online({ userID }) {
             alt=""
           />
         </Link>
-        <span className="rightbarOnline"></span>
+        {isInChat && <span className="rightbarOnline"></span>}
       </div>
       <span className="rightbarUsername">{onlineUser?.name || "user" + onlineUser?.id.substring(0, 8)}</span>
     </li>
