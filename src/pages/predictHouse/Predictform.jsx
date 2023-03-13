@@ -101,6 +101,7 @@ export default function PredictForm() {
     const handelSubmit = async ()=>{
           const model = await loadModel();
           console.log("MODELLLLLLLLL",model,product)
+          // console.log(model?.sumary());
           let a =convertInputmodel(product);
           console.log("MODELLLLLLLLL",a.shape)
           const tensor = tf.tensor2d(a, [1, 280])

@@ -12,7 +12,7 @@ const Market = () => {
   return (
     <div>
       {/* <Navbar /> */}
-      <Topbar isContainSearch={true}></Topbar>
+      <Topbar isContainSearch={false}></Topbar>
 
       {/* <Header/> */}
       <TopSlideshow></TopSlideshow>
@@ -23,9 +23,9 @@ const Market = () => {
         </div>
 
         <div className="marketContainer">
-          {/* <h1 className="marketTitle">Tin mới đăng</h1> */}
+          {/* <h1 className="marketTitle">Tin đăng</h1> */}
           <FeaturedProperties />
-          <MailList />
+          {/* <MailList /> */}
           <Footer />
         </div>
       </div>

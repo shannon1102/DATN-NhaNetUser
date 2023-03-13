@@ -31,6 +31,7 @@ import Friends from "./pages/friends/Friends";
 import SearchUserList from "./components/friend/searchUser/searUserList";
 import SearchUserPage from "./pages/searchUser/searchUserPage";
 import PredictPrice from "./pages/predictHouse/PredictPrice";
+import SearchItem from "./components/markets/searchItem/SearchItem";
 require("dotenv").config();
 
 function App() {
@@ -112,7 +113,7 @@ function App() {
         </PrivateRoute>
 
         <PrivateRoute path="/search-user">
-          <SearchUserPage />
+          <SearchItem />
         </PrivateRoute>
         <PrivateRoute path="/predict-price">
           <PredictPrice />

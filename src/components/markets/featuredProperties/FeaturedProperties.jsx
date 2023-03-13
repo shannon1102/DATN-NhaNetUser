@@ -7,12 +7,14 @@ import { Paper } from "@material-ui/core";
 import Grid from "@mui/material/Grid";
 import { SearchContext } from "../../../context/SearchContext";
 import axios from "axios";
+import Stack from '@mui/material/Stack';
 
 const FeaturedProperties = () => {
   
  
   const { user: currentUser } = useContext(AuthContext);
-  const { search } = useContext(SearchContext);
+  const { searchProduct } = useContext(SearchContext);
+  console.log("searchProductsearchProductsearchProduct",searchProduct)
   const [data, setData] = useState([]);
   const opts = {
     headers: {
@@ -25,16 +27,14 @@ const FeaturedProperties = () => {
   const baseURL = `${process.env.REACT_APP_BASE_URL}`;
   useEffect(() => {
     const fetchProducts = async ()=>{
-
+      console.log("SeacrProduct",searchProduct)
       const res = await axios.get(`${baseURL}/products`,opts);
-      // if(res.data.status == 200) {
         setData(res.data.result)
-      // }
 
     }
  
     fetchProducts()
-  }, [currentUser,search]);
+  }, [currentUser,searchProduct]);
 
   
 
@@ -54,11 +54,17 @@ const FeaturedProperties = () => {
             wrap="wrap"
           > 
             {data
-            .filter(e=> (
-              e?.title?.toLowerCase().includes(search?.toLowerCase()))
-           
-            
-            )
+            .filter(e=> 
+              e?.status != "Sold" &&
+              // e?.title?.toLowerCase().includes(search?.toLowerCase()))
+              e?.city?.toLowerCase().includes(searchProduct.city?.toLowerCase())
+              && e?.district?.toLowerCase().includes(searchProduct.district?.toLowerCase())
+              && e?.ward?.toLowerCase().includes(searchProduct.ward?.toLowerCase())
+              && +e?.price > (searchProduct.minPrice == "" ? 0 : +searchProduct.minPrice)
+              && +e?.price < (searchProduct.maxPrice == "" ? 99999999999 : +searchProduct.maxPrice)
+              && +e?.squaredMeterArea > (searchProduct.minSquaredMeterArea =="" ? 0 : +searchProduct.minSquaredMeterArea)
+              && +e?.squaredMeterArea < (searchProduct.maxSquaredMeterArea =="" ? 9999999: searchProduct.maxSquaredMeterArea)
+              )
             .map((item) => (
               <Grid item>
                 <Paper>

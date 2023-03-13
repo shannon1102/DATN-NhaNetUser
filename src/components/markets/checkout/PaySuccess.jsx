@@ -13,6 +13,7 @@ import {
 import React from "react";
 import "./checkoutSucces.css";
 import Topbar from "../../topbar/Topbar";
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 import Sidebar from "../../sidebar/Sidebar";
 // import TaskAltIcon from '@mui/icons-material/TaskAlt';
@@ -26,6 +27,8 @@ export default function PaySuccess() {
         <div className="checkoutSucess">
           <Grid container spacing={2} component={Paper}>
             <Grid item xs={12}>
+            <div className="messageHeader">
+            <CheckCircleOutlineIcon className="iconSuccess"></CheckCircleOutlineIcon>
               <Typography
                 className="notifyPaySuccessTitle"
                 variant="h5"
@@ -33,14 +36,16 @@ export default function PaySuccess() {
               >
                 Bạn đã đặt cọc thành công !!!
               </Typography>
+              </div>
             </Grid>
             <Grid item xs={12}>
-              <Typography className="notifyPaySuccess" variant="subtitle1">
-                Vui lòng kiểm tra lại mail ,chúng tôi sẽ liên lạc lại cho bạn
-                ngay
+             
+            <Typography className="notifyPaySuccess" variant="subtitle1">
+                Xem lại hóa đơn thanh toán đặt cọc qua email tra lại mail
               </Typography>
+           
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Box sx={{ height: "200px", width: "100%" }}>
                 <TableContainer component={Paper}>
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -86,7 +91,7 @@ export default function PaySuccess() {
                   </Table>
                 </TableContainer>
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
         </div>
       </div>

@@ -58,19 +58,19 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Bạn bè</span>
             </li>
           </Link>
+          <hr className="sidebarHr" />
           <Link to={`/connect`} style={{ textDecoration: "none" }}>
             <li className="sidebarListItem">
               <PersonPin className="sidebarIcon" />
               <span className="sidebarListItemText">Kết nối làm quen</span>
             </li>
           </Link>
-          <hr className="sidebarHr" />
-          <Link to={`/search-user`} style={{ textDecoration: "none" }}>
+          {/* <Link to={`/search-user`} style={{ textDecoration: "none" }}>
             <li className="sidebarListItem">
               <FindInPageOutlined className="sidebarIcon" />
               <span className="sidebarListItemText">Tìm kiếm người dùng</span>
             </li>
-          </Link>
+          </Link> */}
 
           <Link to={`/market`} style={{ textDecoration: "none" }}>
             <li className="sidebarListItem">
@@ -84,17 +84,17 @@ export default function Sidebar() {
               <span className="sidebarListItemText">Giao dịch đặt cọc</span>
             </li>
           </Link>
-          <Link to={`/deposits`} style={{ textDecoration: "none" }}>
+          {/* <Link to={`/deposits`} style={{ textDecoration: "none" }}>
             <li className="sidebarListItem">
               <StoreOutlined className="sidebarIcon" />
               <span className="sidebarListItemText">Quản lý tin bán</span>
             </li>
-          </Link>
+          </Link> */}
           <hr className="sidebarHr" />
-          <li className="sidebarListItem">
+          {/* <li className="sidebarListItem">
             <Bookmark className="sidebarIcon" />
             <span className="sidebarListItemText">Về chúng tôi</span>
-          </li>
+          </li> */}
           <Link to="/predict-price">
             <li className="sidebarListItem">
               <HelpOutline className="sidebarIcon" />

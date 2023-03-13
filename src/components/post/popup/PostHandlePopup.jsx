@@ -48,12 +48,12 @@ export default function PostHandlePopup({ post, currentUser }) {
   };
 
   const checkOwner = (post, currentUser) => {
-    if (post?.user.id === currentUser.id) return true;
+    if (post?.user?.id === currentUser.id) return true;
     return false;
   };
   return (
     <div>
-      <Button
+       {checkOwner(post, currentUser) ? <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
@@ -61,7 +61,7 @@ export default function PostHandlePopup({ post, currentUser }) {
         onClick={handleClick}
       >
         <MoreVert />
-      </Button>
+      </Button> : <MoreVert />}
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -73,12 +73,8 @@ export default function PostHandlePopup({ post, currentUser }) {
       >
         {console.log(post, currentUser)}
         {checkOwner(post, currentUser) && (
-          <MenuItem onClick={handleEdit}>Edit post</MenuItem>
-        )}
-        {checkOwner(post, currentUser) && (
           <MenuItem onClick={handleDelete}>Delete post</MenuItem>
         )}
-        <MenuItem onClick={handleReport}>Report post</MenuItem>
       </Menu>
 
       {isEditPost && (

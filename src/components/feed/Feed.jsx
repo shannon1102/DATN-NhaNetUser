@@ -31,12 +31,6 @@ export default function Feed({ userID }) {
   console.log("AAAAAAAAAAAAAAAAAAAAA", a);
 
   const fetchPosts = async () => {
-    const profileParams = new URLSearchParams({
-      token: user.token,
-      limit: 30,
-      user_id: userID,
-      offset: 0,
-    }).toString();
     console.log("USERIDDDDDDDD", userID);
     let url = "";
     if (userID) {

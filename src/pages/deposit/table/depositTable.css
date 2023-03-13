@@ -30,3 +30,11 @@
 .actionBtn{
   margin-left: 10px;
 }
+.deleteButton{
+    padding:10px;
+    border: 1px  ;
+    margin-left: 10px;
+    background-color: rgba(0, 151, 96, 0.103);
+    cursor:pointer;
+}
+

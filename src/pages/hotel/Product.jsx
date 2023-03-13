@@ -91,14 +91,17 @@ const Product = () => {
   }, [data]);
 
   let payLoad = {
-    customerAddress: "string",
-    price: data.price,
+    customerAddress: currentUser.address || "",
+    price: +data.price/100,
     customerEmail: currentUser.email,
     customerName: currentUser.name,
     customerPhone: currentUser.phone,
     productId: +id,
     paymentMethod: "card",
     status: "sucssess",
+    title: data.title,
+    ownerName : data.user?.name,
+    ownerEmail:data.user?.email
   };
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -146,10 +149,10 @@ const Product = () => {
                           fontFamily: "Lato",
                           padding: "10px 0px",
                         }}
-                        variant="h7"
+                        variant="h6"
                         gutterBottom
                       >
-                        {"Giá bán: " + (data?.price || "2,900,000") + "VNĐ"}
+                        <b>{"Giá bán: "}</b>  {(data?.price || "2,900,000") + "VNĐ"}
                       </Typography>
                       <Divider></Divider>
 
@@ -161,7 +164,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Mô tả: " + data.description}
+                        <b>{"Mô tả: "} </b> {data.description}
                       </Typography>
                       <Divider></Divider>
 
@@ -172,19 +175,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Số phòng ngủ:" + data.numBedRooms}
-                      </Typography>
-                      <Divider></Divider>
-
-                      <Typography
-                        sx={{
-                          fontFamily: "Lato",
-                          padding: "10px 0px",
-                        }}
-                        variant="h7"
-                        gutterBottom
-                      >
-                        {"Số tầng: " + data.numFloors}
+                        <b>{"Số phòng ngủ: "} </b> {data.numBedRooms}
                       </Typography>
                       <Divider></Divider>
 
@@ -196,7 +187,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Diện tích: " + data.squaredMeterArea + "m2"}
+                        <b>{"Số tầng: "}</b> { data.numFloors}
                       </Typography>
                       <Divider></Divider>
 
@@ -208,7 +199,19 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Chiều dài: " + data.lengthMeter + "m"}
+                        <b>{"Diện tích: "}</b> { data.squaredMeterArea + " (m2)"}
+                      </Typography>
+                      <Divider></Divider>
+
+                      <Typography
+                        sx={{
+                          fontFamily: "Lato",
+                          padding: "10px 0px",
+                        }}
+                        variant="h7"
+                        gutterBottom
+                      >
+                        <b>{"Chiều dài:  "}</b>  {data.lengthMeter + " (m)"}
                       </Typography>
                       <Divider></Divider>
                       <Typography
@@ -219,7 +222,7 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Chiều rộng: " + data.widthMeter + "m"}
+                        <b>{"Chiều rộng:  "}</b> {data.widthMeter + " (m)"}
                       </Typography>
                       <Divider></Divider>
                       <Typography
@@ -230,8 +233,8 @@ const Product = () => {
                         variant="h7"
                         gutterBottom
                       >
-                        {"Sổ đỏ: " +
-                          (data.certificateOfland == 0 ? "Chưa có" : "Đã có")}
+                       <b> {"Sổ đỏ:  "} </b> 
+                          {(data.certificateOfland == 0 ? "Chưa có" : "Đã có")}
                       </Typography>
                       <Divider></Divider>
                     </Box>
@@ -271,13 +274,16 @@ const Product = () => {
                   {/* <h1></h1> */}
                   <span>{data.title}</span>
                   <p>{data.description}</p>
+
+                  <p>{"Đặt mua ngôi nhà chỉ với 1 % giá trị :"}</p><span>
                   <h2>
                     <b>
-                      {data.price ??
+                      {data.price/100 ??
                         Math.floor(Math.random() * (10000 - 1000 + 1) + 1)}{" "}
                       VNĐ
                     </b>
                   </h2>
+                  </span>
                   {/* <Link to={`/checkout`} style={{ textDecoration: "none", width: "100%",
                       display: "flex"
                    }}> */}
@@ -311,7 +317,7 @@ const Product = () => {
             </div>
           </div>
           <br></br>
-          <MailList />
+          {/* <MailList /> */}
           <Footer />
         </div>
       )}

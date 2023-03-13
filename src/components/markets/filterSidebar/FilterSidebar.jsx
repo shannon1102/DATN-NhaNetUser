@@ -20,14 +20,12 @@ import {
   Select,
   Paper,
 } from "@material-ui/core";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import HotelIcon from "@material-ui/icons/Hotel";
-import BathtubIcon from "@material-ui/icons/Bathtub";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+
 import "./filterSidebar.css";
 import AppButton from "../../AppButton/AppButton";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
+import { SearchContext } from "../../../context/SearchContext";
 const FilterSidebar = () => {
   const { user } = useContext(AuthContext);
   const opts = {
@@ -45,6 +43,11 @@ const FilterSidebar = () => {
   const [districts, setDistricts] = useState([]);
   const [districtId, setDistrictId] = useState([]);
   const [wards, setWards] = useState([]);
+  const {
+    search,
+    searchProduct,
+    dispatch: searchDispatch,
+  } = useContext(SearchContext);
 
   const [product, setProduct] = useState({
     city: "",
@@ -107,9 +110,24 @@ const FilterSidebar = () => {
     fetchWards();
   }, [districtId]);
 
-
-
   const handleFilterSubmit = () => {
+    console.log("SubmitInfor", product);
+    searchDispatch({
+      type: "NEW_SEARCH",
+      payload: {
+        searchProduct: {
+          city: product.city,
+          district: product.district,
+          ward: product.ward,
+          minPrice: product.minPrice,
+          maxPrice: product.maxPrice,
+          minSquaredMeterArea: product.minSquareArea,
+          maxSquaredMeterArea: product.maxSquareArea,
+        },
+        search: search,
+      },
+    });
+    console.log("searchProduct", searchProduct);
     // do something with the filter options
   };
 
@@ -133,14 +151,18 @@ const FilterSidebar = () => {
                 disableUnderline
                 labelId="location-city-label"
                 id="location-city-select"
-                onChange={(e)=>{
-                  
-                   handleFormChange(e)
+                onChange={(e) => {
+                  handleFormChange(e);
                 }}
                 name="city"
               >
+                <MenuItem value="">None</MenuItem>
                 {provinces?.map((province) => (
-                  <MenuItem key={province.id} onClick={()=> setProvinceId(province.id)} value={province.name}>
+                  <MenuItem
+                    key={province.id}
+                    onClick={() => setProvinceId(province.id)}
+                    value={province.name}
+                  >
                     {province.name}
                   </MenuItem>
                 ))}
@@ -154,14 +176,19 @@ const FilterSidebar = () => {
                 disableUnderline
                 labelId="location-ward-label"
                 id="location-ward-select"
-                    onChange={(e)=>{
+                onChange={(e) => {
                   //  setDistrictId(e.target.value)
-                   handleFormChange(e)
+                  handleFormChange(e);
                 }}
                 name="district"
               >
+                <MenuItem value="">None</MenuItem>
                 {districts?.map((district) => (
-                  <MenuItem key={district.id} value={district.name} onClick={()=> setDistrictId(district.id)}>
+                  <MenuItem
+                    key={district.id}
+                    value={district.name}
+                    onClick={() => setDistrictId(district.id)}
+                  >
                     {district.name}
                   </MenuItem>
                 ))}
@@ -178,10 +205,12 @@ const FilterSidebar = () => {
                 id="location-district-select"
                 onChange={handleFormChange}
                 name="ward"
-            
               >
+                <MenuItem value="">None</MenuItem>
                 {wards?.map((ward) => (
-                  <MenuItem key={ward.id}  value={ward.name}>{ward.name}</MenuItem>
+                  <MenuItem key={ward.id} value={ward.name}>
+                    {ward.name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -204,8 +233,7 @@ const FilterSidebar = () => {
                   max={10000000000}
                   // name=""
                   onChange={(event, newValue) => {
-        
-                    handleFormChange(event)
+                    handleFormChange(event);
                   }}
                   valueLabelDisplay="auto"
                   sx={{
@@ -225,9 +253,8 @@ const FilterSidebar = () => {
               type="number"
               value={product.minPrice}
               name="minPrice"
-              onChange= {(e)=>{
-                
-                handleFormChange(e)
+              onChange={(e) => {
+                handleFormChange(e);
               }}
               className={"filterInput"}
             />
@@ -238,12 +265,10 @@ const FilterSidebar = () => {
               size="small"
               type="number"
               value={product.maxPrice}
-              onChange= {(e)=>{
-                
-                handleFormChange(e)
+              onChange={(e) => {
+                handleFormChange(e);
               }}
               name="maxPrice"
-     
               className={"filterInput"}
             />
           </ListItem>
@@ -300,8 +325,8 @@ const FilterSidebar = () => {
               value={product.minSquareArea}
               name="minSquareArea"
               // onChange={handleMinSquareArea}
-              onChange={(e)=>{
-                handleFormChange(e)
+              onChange={(e) => {
+                handleFormChange(e);
               }}
               className={"filterInput"}
             />
@@ -313,8 +338,8 @@ const FilterSidebar = () => {
               type="number"
               value={product.maxSquareArea}
               // onChange={handleMaxSquareArea}
-              onChange={(e)=>{
-                handleFormChange(e)
+              onChange={(e) => {
+                handleFormChange(e);
               }}
               name="maxSquareArea"
               className={"filterInput"}
