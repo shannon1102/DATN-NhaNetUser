@@ -18,16 +18,19 @@ export default function Login() {
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
+    // try{
     e.preventDefault();
-    loginCall(
+    let resp = await loginCall(
       {
         email: email.current.value,
         password: password.current.value,
       },
       dispatch
       );
-      setOpen(true);
+      console.log("resp",resp)
+      if(resp)
+       setOpen(true);
   
   };
   const Alert =forwardRef(function Alert(props, ref) {

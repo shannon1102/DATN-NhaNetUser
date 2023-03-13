@@ -19,6 +19,7 @@ import { Button, TextField } from "@mui/material";
 
 import SendIcon from "@material-ui/icons/Send";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { SearchContext } from "../../context/SearchContext";
 
 
 export default function Messenger() {
@@ -65,11 +66,13 @@ export default function Messenger() {
 
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
+  const [currentChatId, setCurrentChatId] = useState();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [friends, setFriends] = useState([]);
+  const {search} = useContext(SearchContext);
   const socket = useRef();
   const { user } = useContext(AuthContext);
   const scrollRef = useRef();
@@ -129,6 +132,7 @@ export default function Messenger() {
         console.log("res: ", res);
 
         setConversations(res?.data?.result);
+        setCurrentChat(conversations[0])
       } catch (err) {
         console.log(err);
       }
@@ -234,16 +238,20 @@ export default function Messenger() {
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Search for friends" className="chatMenuInput" />
+            {/* <input placeholder="Search for friends" className="chatMenuInput" /> */}
             {console.log("conv", conversations)}
-            {conversations.map((c) => (
+            {conversations.filter(c=>
+                  c?.firstUser.name?.toLowerCase().includes(search?.toLowerCase()) || c?.secondUser.name?.toLowerCase().includes(search?.toLowerCase())
+            )
+            ?.map((c) => (
               <div
                 onClick={() => {
                   console.log("currentChat", c);
                   setCurrentChat(c);
+                  setCurrentChatId(c.id);
                 }}
               >
-                <Conversation conversation={c} currentUser={user} />
+                <Conversation conversation={c} currentUser={user} currentChatId={c.id} />
               </div>
             ))}
           </div>
@@ -316,7 +324,7 @@ export default function Messenger() {
             {/* <ChatBox></ChatBox> */}
           </div>
         </div>
-        <div className="chatOnline">
+        {/* <div className="chatOnline"> */}
           <div className="chatOnlineWrapper">
             <ChatOnline
               onlineUsers={onlineUsers}
@@ -324,7 +332,7 @@ export default function Messenger() {
               setCurrentChat={setCurrentChat}
             />
           </div>
-        </div>
+        {/* </div> */}
       </div>
       </div>
   

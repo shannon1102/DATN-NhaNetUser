@@ -2,8 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./conversation.css";
 
-export default function Conversation({ conversation, currentUser }) {
+export default function Conversation({ conversation, currentUser, currentChatId }) {
   const [user, setUser] = useState(null);
+  
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const opts = {
     headers: {
@@ -37,10 +38,10 @@ export default function Conversation({ conversation, currentUser }) {
       }
     };
     getUser();
-  }, [currentUser, conversation]);
+  }, [currentUser, conversation,currentChatId]);
 
   return (
-    <div className="conversation">
+    <div className="conversation" style={{backgroundColor: (conversation.id === currentChatId) ? "blanchedalmond"  :"none"}}>
       <img
         className="conversationImg"
         src={
